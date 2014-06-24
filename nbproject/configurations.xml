@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="94">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="sources">
+        <in>irrwidget.cpp</in>
+        <in>main.cpp</in>
+        <in>mainwindow.cpp</in>
+      </df>
+      <in>moc_irrwidget.cpp</in>
+      <in>moc_mainwindow.cpp</in>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Важные файлы"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-O2"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>TetrisGame</executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>/usr/share/qt4/mkspecs/linux-g++</pElem>
+              <pElem>.</pElem>
+              <pElem>/usr/include/qt4/QtCore</pElem>
+              <pElem>/usr/include/qt4/QtGui</pElem>
+              <pElem>/usr/include/qt4</pElem>
+              <pElem>../../Irrlicht/irrlicht-1.8/include</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>QT_CORE_LIB</Elem>
+              <Elem>QT_GUI_LIB</Elem>
+              <Elem>QT_NO_DEBUG</Elem>
+              <Elem>QT_SHARED</Elem>
+              <Elem>QT_WEBKIT</Elem>
+              <Elem>_REENTRANT</Elem>
+            </preprocessorList>
+          </ccTool>
+        </makeTool>
+      </makefileType>
+      <item path="moc_irrwidget.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="moc_mainwindow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/irrwidget.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/mainwindow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

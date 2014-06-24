@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "headers/mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -6,8 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    irrWidget.setParent(ui->centralWidget);
-    irrWidget.setGeometry(160, 0, 630, 480);
+    setCentralWidget(&irrWidget);
+    //irrWidget.setParent(ui->centralWidget);
+    //irrWidget.setGeometry(160, 0, 630, 480);
 }
 
 MainWindow::~MainWindow()

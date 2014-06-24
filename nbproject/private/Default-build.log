@@ -1,0 +1,652 @@
+/usr/bin/uic-qt4 mainwindow.ui -o ui_mainwindow.h
+/usr/bin/g++ -c -g3 -gdwarf-2 -O2 -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I../../Irrlicht/irrlicht-1.8/include -I. -I. -o main.o main.cpp
+In file included from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:61:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «out» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «in» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:12:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/ISceneNodeAnimator.h:53:16: предупреждение: параметр «event» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:406:29: предупреждение: параметр «num» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:687:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:712:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newParent» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newManager» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:66:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:159:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:166:24: предупреждение: параметр «icon» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «sprite» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:179:16: предупреждение: параметр «behavior» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IGUIButton.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:74,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:765:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:789:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «lastMaterial» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «resetAllRenderstates» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «services» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «service» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «vtxtype» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISkinnedMesh.h:11:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/ISceneManager.h:21,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:135,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:332:15: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:144:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/IShaderConstantSetCallBack.h:44:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:169:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «detailLevel» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «startFrameLoop» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «endFrameLoop» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:182:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:174:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/SMaterial.h:9:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IMeshBuffer.h:9,
+                 from ../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/matrix4.h: In instantiation of «void irr::core::CMatrix4<T>::setDefinitelyIdentityMatrix(bool) [with T = float]»:
+../../Irrlicht/irrlicht-1.8/include/quaternion.h:372:43:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/matrix4.h:2188:14: предупреждение: параметр «isDefinitelyIdentityMatrix» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:112:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from main.cpp:2:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:52:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:68:58:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:118:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:142:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:158:62:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+/usr/bin/g++ -c -g3 -gdwarf-2 -O2 -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I../../Irrlicht/irrlicht-1.8/include -I. -I. -o mainwindow.o mainwindow.cpp
+In file included from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:61:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «out» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «in» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:12:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/ISceneNodeAnimator.h:53:16: предупреждение: параметр «event» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:406:29: предупреждение: параметр «num» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:687:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:712:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newParent» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newManager» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:66:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:159:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:166:24: предупреждение: параметр «icon» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «sprite» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:179:16: предупреждение: параметр «behavior» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IGUIButton.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:74,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:765:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:789:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «lastMaterial» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «resetAllRenderstates» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «services» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «service» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «vtxtype» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISkinnedMesh.h:11:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/ISceneManager.h:21,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:135,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:332:15: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:144:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IShaderConstantSetCallBack.h:44:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:169:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «detailLevel» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «startFrameLoop» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «endFrameLoop» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:182:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:174:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/SMaterial.h:9:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IMeshBuffer.h:9,
+                 from ../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/matrix4.h: In instantiation of «void irr::core::CMatrix4<T>::setDefinitelyIdentityMatrix(bool) [with T = float]»:
+../../Irrlicht/irrlicht-1.8/include/quaternion.h:372:43:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/matrix4.h:2188:14: предупреждение: параметр «isDefinitelyIdentityMatrix» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:112:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from mainwindow.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:52:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:68:58:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:118:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:142:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:158:62:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+/usr/bin/g++ -c -g3 -gdwarf-2 -O2 -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I../../Irrlicht/irrlicht-1.8/include -I. -I. -o irrwidget.o irrwidget.cpp
+In file included from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:61:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «out» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «in» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:12:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/ISceneNodeAnimator.h:53:16: предупреждение: параметр «event» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:406:29: предупреждение: параметр «num» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:687:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:712:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newParent» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newManager» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:66:0,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:159:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:166:24: предупреждение: параметр «icon» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «sprite» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:179:16: предупреждение: параметр «behavior» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IGUIButton.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:74,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:765:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:789:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «lastMaterial» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «resetAllRenderstates» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «services» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «service» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «vtxtype» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISkinnedMesh.h:11:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/ISceneManager.h:21,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:135,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:332:15: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:144:0,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IShaderConstantSetCallBack.h:44:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:169:0,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «detailLevel» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «startFrameLoop» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «endFrameLoop» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:182:0,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:174:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+irrwidget.cpp:62:6: предупреждение: параметр «event» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/SMaterial.h:9:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IMeshBuffer.h:9,
+                 from ../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/matrix4.h: In instantiation of «void irr::core::CMatrix4<T>::setDefinitelyIdentityMatrix(bool) [with T = float]»:
+../../Irrlicht/irrlicht-1.8/include/quaternion.h:372:43:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/matrix4.h:2188:14: предупреждение: параметр «isDefinitelyIdentityMatrix» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:112:0,
+                 from irrwidget.h:5,
+                 from irrwidget.cpp:1:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:52:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:68:58:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:118:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:142:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:158:62:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+/usr/bin/moc-qt4 -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I../../Irrlicht/irrlicht-1.8/include -I. -I. mainwindow.h -o moc_mainwindow.cpp
+/usr/bin/g++ -c -g3 -gdwarf-2 -O2 -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I../../Irrlicht/irrlicht-1.8/include -I. -I. -o moc_mainwindow.o moc_mainwindow.cpp
+In file included from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:61:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «out» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «in» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:12:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/ISceneNodeAnimator.h:53:16: предупреждение: параметр «event» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:406:29: предупреждение: параметр «num» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:687:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:712:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newParent» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newManager» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:66:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:159:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:166:24: предупреждение: параметр «icon» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «sprite» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:179:16: предупреждение: параметр «behavior» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IGUIButton.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:74,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:765:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:789:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «lastMaterial» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «resetAllRenderstates» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «services» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «service» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «vtxtype» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISkinnedMesh.h:11:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/ISceneManager.h:21,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:135,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:332:15: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:144:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IShaderConstantSetCallBack.h:44:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:169:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «detailLevel» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «startFrameLoop» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «endFrameLoop» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:182:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:174:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/SMaterial.h:9:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IMeshBuffer.h:9,
+                 from ../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/matrix4.h: In instantiation of «void irr::core::CMatrix4<T>::setDefinitelyIdentityMatrix(bool) [with T = float]»:
+../../Irrlicht/irrlicht-1.8/include/quaternion.h:372:43:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/matrix4.h:2188:14: предупреждение: параметр «isDefinitelyIdentityMatrix» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:112:0,
+                 from irrwidget.h:5,
+                 from mainwindow.h:4,
+                 from moc_mainwindow.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:52:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:68:58:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:118:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:142:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:158:62:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+/usr/bin/moc-qt4 -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I../../Irrlicht/irrlicht-1.8/include -I. -I. irrwidget.h -o moc_irrwidget.cpp
+/usr/bin/g++ -c -g3 -gdwarf-2 -O2 -Wall -W -D_REENTRANT -DQT_WEBKIT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED -I/usr/share/qt4/mkspecs/linux-g++ -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I../../Irrlicht/irrlicht-1.8/include -I. -I. -o moc_irrwidget.o moc_irrwidget.cpp
+In file included from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:53:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:61:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «out» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:58:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «in» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IAttributeExchangingObject.h:63:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:12:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/ISceneNodeAnimator.h:53:16: предупреждение: параметр «event» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IAnimatedMeshSceneNode.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:59,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:406:29: предупреждение: параметр «num» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:687:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:712:16: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newParent» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ISceneNode.h:741:23: предупреждение: параметр «newManager» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:66:0,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:159:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:166:24: предупреждение: параметр «icon» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «iconId» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:173:16: предупреждение: параметр «sprite» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/ICursorControl.h:179:16: предупреждение: параметр «behavior» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/IGUIButton.h:8:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:74,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:765:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IGUIElement.h:789:15: предупреждение: параметр «options» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «lastMaterial» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «resetAllRenderstates» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:50:15: предупреждение: параметр «services» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:106:0,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «service» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMaterialRenderer.h:71:15: предупреждение: параметр «vtxtype» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/ISkinnedMesh.h:11:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/ISceneManager.h:21,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:135,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:329:15: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSkinMeshBuffer.h:332:15: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:144:0,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IShaderConstantSetCallBack.h:44:15: предупреждение: параметр «material» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:169:0,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «detailLevel» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «startFrameLoop» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SAnimatedMesh.h:69:18: предупреждение: параметр «endFrameLoop» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:182:0,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «vertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numVertices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «indices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:171:16: предупреждение: параметр «numIndices» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/SSharedMeshBuffer.h:174:16: предупреждение: параметр «other» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/SMaterial.h:9:0,
+                 from ../../Irrlicht/irrlicht-1.8/include/IMeshBuffer.h:9,
+                 from ../../Irrlicht/irrlicht-1.8/include/IDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/CDynamicMeshBuffer.h:8,
+                 from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:34,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/matrix4.h: In instantiation of «void irr::core::CMatrix4<T>::setDefinitelyIdentityMatrix(bool) [with T = float]»:
+../../Irrlicht/irrlicht-1.8/include/quaternion.h:372:43:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/matrix4.h:2188:14: предупреждение: параметр «isDefinitelyIdentityMatrix» не используется [-Wunused-parameter]
+In file included from ../../Irrlicht/irrlicht-1.8/include/irrlicht.h:112:0,
+                 from irrwidget.h:5,
+                 from moc_irrwidget.cpp:10:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetAlphaManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:52:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexColorSetManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexColorSetManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:68:58:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:118:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexTCoordsScaleManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:142:63:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h: In instantiation of «bool irr::scene::IMeshManipulator::apply_(const Functor&, irr::scene::IMeshBuffer*, bool, const irr::scene::IVertexManipulator&) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»:
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:306:55:   instantiated from «bool irr::scene::IMeshManipulator::apply(const Functor&, irr::scene::IMeshBuffer*, bool) const [with Functor = irr::scene::SVertexPositionTransformManipulator]»
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:158:62:   instantiated from here
+../../Irrlicht/irrlicht-1.8/include/IMeshManipulator.h:346:8: предупреждение: параметр «typeTest» не используется [-Wunused-parameter]
+g++ -Wl,-O1 -o TetrisGame main.o mainwindow.o irrwidget.o moc_mainwindow.o moc_irrwidget.o    -L/usr/lib/i386-linux-gnu -L/home/hokan/Irrlicht/irrlicht-1.8/lib/Linux -lIrrlicht -lGL -lX11 -lXxf86vm -lQtGui -lQtCore -lpthread 
