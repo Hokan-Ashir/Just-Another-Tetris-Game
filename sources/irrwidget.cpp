@@ -11,9 +11,9 @@ QWidget(parent) {
     driverType = EDT_OPENGL;
 
     grabKeyboard();
-    
+
     //setMouseTracking(true);
-    
+
     //TODO focus policy
     //setFocusPolicy(Qt::StrongFocus);
     //grabMouse();
@@ -112,6 +112,18 @@ QirrWidget::SIrrlichtKey QirrWidget::convertToIrrlichtKey(int key) {
             case Qt::Key_Right:
                 irrKey.code = irr::KEY_RIGHT;
                 break;
+
+            case Qt::Key_Space:
+                irrKey.code = irr::KEY_SPACE;
+                break;
+
+            case Qt::Key_Plus:
+                irrKey.code = irr::KEY_PLUS;
+                break;
+
+            case Qt::Key_Minus:
+                irrKey.code = irr::KEY_MINUS;
+                break;
         }
     return irrKey;
 }
@@ -208,7 +220,7 @@ void QirrWidget::mouseMoveEvent(QMouseEvent *event) {
         irrEvent.MouseInput.X = event->x();
         irrEvent.MouseInput.Y = event->y();
         irrEvent.MouseInput.Wheel = 0.0f; // Zero is better than undefined        
-        device->postEventFromUser(irrEvent);        
+        device->postEventFromUser(irrEvent);
     }
     event->ignore();
 }

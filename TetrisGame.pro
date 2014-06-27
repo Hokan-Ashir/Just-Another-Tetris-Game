@@ -12,10 +12,12 @@ TEMPLATE = app
 
 SOURCES += sources/main.cpp\
         sources/mainwindow.cpp \
-    sources/irrwidget.cpp
+    sources/irrwidget.cpp \
+    sources/CGridSceneNode.cpp
 
 HEADERS  += headers/mainwindow.h \
-    headers/irrwidget.h
+    headers/irrwidget.h \
+    headers/CGridSceneNode.h
 
 FORMS    += forms/mainwindow.ui
 LIBS += -L/home/hokan/Irrlicht/irrlicht-1.8/lib/Linux -lIrrlicht -lGL -lX11 -lXxf86vm
