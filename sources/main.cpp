@@ -1,5 +1,6 @@
 #include "headers/mainwindow.h"
 #include "headers/CGridSceneNode.h"
+#include "headers/CFigure.h"
 
 #include <QtGui/QApplication>
 #include <iostream>
@@ -218,6 +219,200 @@ struct SGridBox {
     }
 };
 
+class CGameField {
+public:
+
+    void changeFieldSize(u32 x, u32 y, u32 z) {
+        field.reallocate(x * y * z);
+        currentSizeX = x;
+        currentSizeY = y;
+        currentSizeZ = z;
+    }
+
+    void deleteNodes(bool twoDimensionalMode) {
+        core::array<ISceneNode*> nodesToDelete;
+        getNodesToDelete(twoDimensionalMode, nodesToDelete);
+
+        for (u32 i = 0; i < nodesToDelete.size(); ++i) {
+            // TODO make figure interface
+            /*Figure* figure = dynamic_cast<Fugure*>(nodesToDelete[i]);
+            figure->deleteAction();
+            figure->remove();*/
+            nodesToDelete[i]->remove();
+        }
+    }
+
+    u8 getFieldValue(u32 x, u32 y, u32 z) const {
+        return field[x][y][z];
+    }
+
+    void setFieldValue(u8 newValue, u32 x, u32 y, u32 z) {
+        field[x][y][z] = newValue;
+    }
+
+private:
+    //  |y
+    //  |    /z
+    //  |   /
+    //  |  /
+    //  | /
+    //  |/_ _ _ _ _ x
+
+
+    // check if line has same values (used for getting list of node to delete)
+    // player construct whole line
+    // used for 2d-mode
+
+    bool hasLineSameValues(u32 lineNumber) {
+        u8 searchValue = field[0][lineNumber][0];
+        for (u32 i = 1; i < currentSizeX; ++i) {
+            if (searchValue != field[i][lineNumber][0]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // check if plane has same values (used for getting list of node to delete)
+    // player construct whole plane
+    // used for 3d-mode
+
+    bool hasPlaneSameValues(u32 planeNumber) {
+        u8 searchValue = field[0][planeNumber][0];
+        for (u32 i = 1; i < currentSizeX; ++i) {
+            for (u32 j = 1; j < currentSizeZ; ++j) {
+                if (searchValue != field[i][planeNumber][j]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    // player has constructed plane (3d-mode) or line (2d-mode) of same elemental blocks
+    // so we get list of nodes which must be deleted
+
+    void getNodesToDelete(bool twoDimensionalMode, core::array<scene::ISceneNode*>& outNodes) {
+        // get number of lines that already constructed and shich nodes must be removed
+        core::array<u32> linesToDeleteArray(currentSizeY);
+        for (u32 i = 0; i < currentSizeY; ++i) {
+            if (twoDimensionalMode) {
+                if (hasLineSameValues(i)) {
+                    linesToDeleteArray.push_back(i);
+                }
+            } else {
+                if (hasPlaneSameValues(i)) {
+                    linesToDeleteArray.push_back(i);
+                }
+            }
+        }
+
+        // get array of nodes with specific type        
+        // TODO here must be correct SceneNode type
+        sceneManager->getSceneNodesFromType(ESNT_CUBE, outNodes);
+
+        // check which nodes must be removed
+        for (u32 i = 0; i < outNodes.size(); ++i) {
+            u32 j = 0;
+            for (j; j < linesToDeleteArray.size(); ++j) {
+                if (outNodes[i]->getPosition().Y == (fieldYPosition * j)) {
+                    break;
+                }
+            }
+
+            // node must NOT be removed, cause its Y-position not in array of lines to deletion
+            if (j == linesToDeleteArray.size()) {
+                outNodes.erase(i);
+            }
+        }
+    }
+
+private:
+    core::array<core::array<core::array<u32> > > field;
+
+    u32 currentSizeX;
+    u32 currentSizeY;
+    u32 currentSizeZ;
+
+    // TODO get via terrain->getPosition().Y
+    s32 fieldYPosition;
+
+    scene::ISceneManager* sceneManager;
+
+    // TODO get via aabb
+    u32 elementalBlockSize;
+    core::stringc elementalBlockName;
+};
+
+void setCubeColour(scene::ISceneNode* node, video::SColor colour, u32 borderSize = 5) {
+    video::ITexture* texture = node->getMaterial(0).getTexture(0);
+    video::SColor* nodeTexturePixels = (video::SColor*)texture->lock(video::ETLM_WRITE_ONLY);
+    for (u32 i = borderSize; i < texture->getSize().Height - borderSize; ++i) {
+        for (u32 j = borderSize; j < texture->getSize().Width - borderSize; ++j) {
+            nodeTexturePixels[i * texture->getSize().Height + j].set(colour.color);
+        }
+    }
+    texture->unlock();
+}
+
+void createFugureXmlFile(IrrlichtDevice* device) {
+    io::path fileName = "zigzag.xml";
+
+
+    irr::io::IXMLWriter* xwriter = device->getFileSystem()->createXMLWriter(fileName);
+    if (!xwriter) {
+        irr::io::IWriteFile* file = device->getFileSystem()->createAndWriteFile(fileName);
+        if (!file) {
+            return;
+        }
+        
+        xwriter = device->getFileSystem()->createXMLWriter(file);
+        if (!xwriter) {
+            return;
+        }
+    }    
+
+    //write out the obligatory xml header. Each xml-file needs to have exactly one of those.
+    xwriter->writeXMLHeader();
+
+    //start element mygame, you replace the label "mygame" with anything you want
+    xwriter->writeElement(L"figure", false, L"type", L"cube", L"comment", L"typical zigzag node");
+    xwriter->writeLineBreak(); //new line
+
+    //start section with video settings
+    xwriter->writeElement(L"side", false, L"type", L"up");
+    xwriter->writeLineBreak(); //new line
+    
+    xwriter->writeElement(L"side", false, L"type", L"left");
+    xwriter->writeLineBreak(); //new line
+    
+    xwriter->writeClosingTag(L"side");
+    xwriter->writeLineBreak();
+    
+    xwriter->writeClosingTag(L"side");
+    xwriter->writeLineBreak();
+    
+    xwriter->writeElement(L"side", false, L"type", L"right");
+    xwriter->writeLineBreak(); //new line
+    
+    xwriter->writeElement(L"side", false, L"type", L"right");
+    xwriter->writeLineBreak(); //new line
+    
+    xwriter->writeClosingTag(L"side");
+    xwriter->writeLineBreak();
+    
+    xwriter->writeClosingTag(L"side");
+    xwriter->writeLineBreak();
+
+    //close mygame section
+    xwriter->writeClosingTag(L"figure");
+
+    //delete xml writer
+    xwriter->drop();
+}
+
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
@@ -357,10 +552,12 @@ int main(int argc, char *argv[]) {
     }
     // Добавляем узел сцены, отключаем освещение, задаем анимацию и накладываем текстуру
     IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode(mesh);*/
-    IMeshSceneNode* node = smgr->addCubeSceneNode();
+    IMeshSceneNode* node = smgr->addCubeSceneNode();    
     if (node) {
         node->setMaterialFlag(EMF_LIGHTING, false);
-        node->setPosition(camera->getPosition() + 100);
+        node->setMaterialTexture(0, driver->getTexture("media/textures/cube.png"));
+        setCubeColour(node, SColor(255, 255, 100, 100));
+        node->setPosition(camera->getPosition() + 100);                
         node->setScale(core::vector3df(10.0f, 10.0f, 10.0f));
         //core::vector3df nodePosition = node->getPosition();
         /*node->addAnimator(smgr->createFlyStraightAnimator(
@@ -412,6 +609,20 @@ int main(int argc, char *argv[]) {
     // create event receiver
     MyEventReceiver receiver(terrain, skybox, skydome, node);
     device->setEventReceiver(&receiver);
+    
+    //createFugureXmlFile(device);
+    
+    CFigure figure(smgr->getRootSceneNode(), smgr, -1, device->getFileSystem(), 10.0f, io::path("zigzag.xml"));
+    //figure.createFigureFromFile(io::path("cube.xml"));        
+    figure.applyTextureToFigure("media/textures/cube.png", video::SColor(255, 100, 255, 100));    
+    //figure.setPosition(cameraPosition);
+    figure.setDebugDataVisible(scene::EDS_BBOX);
+    //figure.saveFigureToFile("zigzag1.xml");
+    
+    //video::SMaterial material;
+    //material.EmissiveColor.set(255, 255, 100, 100);
+    //node->getMesh()->getMeshBuffer(0)->getMaterial() = material; //.DiffuseColor.set(255, 255, 100, 100);
+    //smgr->getMeshManipulator()->setVertexColors(node->getMesh(), SColor(255, 255, 100, 100));
 
     return a.exec();
 }

@@ -5,6 +5,7 @@
       <df name="forms">
       </df>
       <df name="headers">
+        <in>CFigure.h</in>
         <in>CGridSceneNode.h</in>
         <in>irrwidget.h</in>
         <in>mainwindow.h</in>
@@ -12,8 +13,11 @@
       <df name="media">
         <df name="models">
         </df>
+        <df name="textures">
+        </df>
       </df>
       <df name="sources">
+        <in>CFigure.cpp</in>
         <in>CGridSceneNode.cpp</in>
         <in>irrwidget.cpp</in>
         <in>main.cpp</in>
@@ -49,6 +53,8 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
+        <gdb_signals>
+        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>
