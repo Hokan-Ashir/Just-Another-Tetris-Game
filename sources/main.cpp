@@ -1,6 +1,8 @@
 #include "headers/mainwindow.h"
 #include "headers/CGridSceneNode.h"
 #include "headers/CFigure.h"
+#include "headers/CMoveByStepAnimator.h"
+#include "headers/CMoveDownAnimator.h"
 
 #include <QtGui/QApplication>
 #include <iostream>
@@ -217,133 +219,6 @@ struct SGridBox {
         downGrid->setMaterialFlag(video::EMF_LIGHTING, false);
         smgr->getMeshManipulator()->setVertexColorAlpha(downGrid->getGrid(0).g(), 0);*/
     }
-};
-
-class CGameField {
-public:
-
-    void changeFieldSize(u32 x, u32 y, u32 z) {
-        field.reallocate(x * y * z);
-        currentSizeX = x;
-        currentSizeY = y;
-        currentSizeZ = z;
-    }
-
-    void deleteNodes(bool twoDimensionalMode) {
-        core::array<ISceneNode*> nodesToDelete;
-        getNodesToDelete(twoDimensionalMode, nodesToDelete);
-
-        for (u32 i = 0; i < nodesToDelete.size(); ++i) {
-            // TODO make figure interface
-            /*Figure* figure = dynamic_cast<Fugure*>(nodesToDelete[i]);
-            figure->deleteAction();
-            figure->remove();*/
-            nodesToDelete[i]->remove();
-        }
-    }
-
-    u8 getFieldValue(u32 x, u32 y, u32 z) const {
-        return field[x][y][z];
-    }
-
-    void setFieldValue(u8 newValue, u32 x, u32 y, u32 z) {
-        field[x][y][z] = newValue;
-    }
-
-private:
-    //  |y
-    //  |    /z
-    //  |   /
-    //  |  /
-    //  | /
-    //  |/_ _ _ _ _ x
-
-
-    // check if line has same values (used for getting list of node to delete)
-    // player construct whole line
-    // used for 2d-mode
-
-    bool hasLineSameValues(u32 lineNumber) {
-        u8 searchValue = field[0][lineNumber][0];
-        for (u32 i = 1; i < currentSizeX; ++i) {
-            if (searchValue != field[i][lineNumber][0]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    // check if plane has same values (used for getting list of node to delete)
-    // player construct whole plane
-    // used for 3d-mode
-
-    bool hasPlaneSameValues(u32 planeNumber) {
-        u8 searchValue = field[0][planeNumber][0];
-        for (u32 i = 1; i < currentSizeX; ++i) {
-            for (u32 j = 1; j < currentSizeZ; ++j) {
-                if (searchValue != field[i][planeNumber][j]) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    // player has constructed plane (3d-mode) or line (2d-mode) of same elemental blocks
-    // so we get list of nodes which must be deleted
-
-    void getNodesToDelete(bool twoDimensionalMode, core::array<scene::ISceneNode*>& outNodes) {
-        // get number of lines that already constructed and shich nodes must be removed
-        core::array<u32> linesToDeleteArray(currentSizeY);
-        for (u32 i = 0; i < currentSizeY; ++i) {
-            if (twoDimensionalMode) {
-                if (hasLineSameValues(i)) {
-                    linesToDeleteArray.push_back(i);
-                }
-            } else {
-                if (hasPlaneSameValues(i)) {
-                    linesToDeleteArray.push_back(i);
-                }
-            }
-        }
-
-        // get array of nodes with specific type        
-        // TODO here must be correct SceneNode type
-        sceneManager->getSceneNodesFromType(ESNT_CUBE, outNodes);
-
-        // check which nodes must be removed
-        for (u32 i = 0; i < outNodes.size(); ++i) {
-            u32 j = 0;
-            for (j; j < linesToDeleteArray.size(); ++j) {
-                if (outNodes[i]->getPosition().Y == (fieldYPosition * j)) {
-                    break;
-                }
-            }
-
-            // node must NOT be removed, cause its Y-position not in array of lines to deletion
-            if (j == linesToDeleteArray.size()) {
-                outNodes.erase(i);
-            }
-        }
-    }
-
-private:
-    core::array<core::array<core::array<u32> > > field;
-
-    u32 currentSizeX;
-    u32 currentSizeY;
-    u32 currentSizeZ;
-
-    // TODO get via terrain->getPosition().Y
-    s32 fieldYPosition;
-
-    scene::ISceneManager* sceneManager;
-
-    // TODO get via aabb
-    u32 elementalBlockSize;
-    core::stringc elementalBlockName;
 };
 
 void setCubeColour(scene::ISceneNode* node, video::SColor colour, u32 borderSize = 5) {
@@ -615,9 +490,77 @@ int main(int argc, char *argv[]) {
     CFigure figure(smgr->getRootSceneNode(), smgr, -1, device->getFileSystem(), 10.0f, io::path("zigzag.xml"));
     //figure.createFigureFromFile(io::path("cube.xml"));        
     figure.applyTextureToFigure("media/textures/cube.png", video::SColor(255, 100, 255, 100));    
-    //figure.setPosition(cameraPosition);
-    figure.setDebugDataVisible(scene::EDS_BBOX);
+        figure.setPosition(cameraPosition);      
+        figure.removeNodeFromFigure((*(*figure.figureParentNode->getChildren().begin())->getChildren().begin()));      
+        //figure.removeNodeFromFigure(figure.figureParentNode);       
+
+
+    figure.setDebugDataVisible(scene::EDS_BBOX);    
+    /*core::aabbox3df box = figure.getTransformedBoundingBox();
+    std::cout << "_" << std::endl;
+    std::cout << box.MinEdge.X << std::endl;
+    std::cout << box.MinEdge.Y << std::endl;
+    std::cout << box.MinEdge.Z << std::endl;
+    
+    std::cout << box.MaxEdge.X << std::endl;
+    std::cout << box.MaxEdge.Y << std::endl;
+    std::cout << box.MaxEdge.Z << std::endl;
+    
+    box = terrain->getBoundingBox();
+    std::cout << "_" << std::endl;
+    std::cout << box.MinEdge.X << std::endl;
+    std::cout << box.MinEdge.Y << std::endl;
+    std::cout << box.MinEdge.Z << std::endl;
+    
+    std::cout << box.MaxEdge.X << std::endl;
+    std::cout << box.MaxEdge.Y << std::endl;
+    std::cout << box.MaxEdge.Z << std::endl;*/
+
     //figure.saveFigureToFile("zigzag1.xml");
+    /*scene::ISceneNodeAnimator* animator = new CMoveByStepAnimator(core::vector3df(0, -10, 0), 500, terrain->getBoundingBox());
+    figure.addAnimator(animator);
+    animator->drop();*/
+    bool twoDimensionalMode = true;
+    CGameFieldManager* gameFieldManager = new CGameFieldManager(10, 10, 10);
+    for (s32 i = 0; i < gameFieldManager->getFieldSize().X; ++i) {
+        gameFieldManager->setFieldValue(EGF_CUBE, i, 0, 5);
+    }
+    //gameFieldManager->printField();
+
+    core::vector3di fieldPosition(5, 8, 5);
+    figure.setParentNodeFieldPosition(fieldPosition);    
+    for (u32 i = 0; i < figure.fieldPositions.size(); ++i) {
+        std::cout << "***********" << std::endl;
+        std::cout << figure.fieldPositions[i].X << std::endl;
+        std::cout << figure.fieldPositions[i].Y << std::endl;
+        std::cout << figure.fieldPositions[i].Z  << std::endl;
+    }
+    figure.removeNodeFromFigure(figure.figureParentNode);
+    std::cout << "after" << std::endl;
+    for (u32 i = 0; i < figure.fieldPositions.size(); ++i) {
+        std::cout << "***********" << std::endl;
+        std::cout << figure.fieldPositions[i].X << std::endl;
+        std::cout << figure.fieldPositions[i].Y << std::endl;
+        std::cout << figure.fieldPositions[i].Z  << std::endl;
+    }/*
+    core::vector3di direction(0, 0, 1);
+    core::array<core::vector3di> extremePositions;
+    figure.getExtremePositions(direction, extremePositions);
+    std::cout << "size" << extremePositions.size() << std::endl;
+    for (irr::u32 i = 0; i < extremePositions.size(); ++i) {        
+        std::cout << "*************" << std::endl;
+        std::cout << extremePositions[i].X << std::endl;
+        std::cout << extremePositions[i].Y << std::endl;
+        std::cout << extremePositions[i].Z << std::endl;
+    }*/
+    /*fieldPosition.X *= figure.getScale().X;
+    fieldPosition.Y *= figure.getScale().Y;
+    fieldPosition.Z *= figure.getScale().Z;
+    figure.setPosition(core::vector3df(cameraPosition.X + fieldPosition.X, terrain->getPosition().Y + fieldPosition.Y, cameraPosition.Z + fieldPosition.Z));*/
+    
+    scene::ISceneNodeAnimator* animator = new CMoveDownAnimator(gameFieldManager, twoDimensionalMode, 1, 500, terrain->getBoundingBox());
+    figure.addAnimator(animator);
+    animator->drop();
     
     //video::SMaterial material;
     //material.EmissiveColor.set(255, 255, 100, 100);

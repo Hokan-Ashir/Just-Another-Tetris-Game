@@ -12,6 +12,11 @@
         <group>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/main.cpp</file>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CFigure.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/irrwidget.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CMoveDownAnimator.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CGameFieldManager.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/irrwidget.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CMoveDownAnimator.h</file>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CFigure.h</file>
         </group>
     </open-files>

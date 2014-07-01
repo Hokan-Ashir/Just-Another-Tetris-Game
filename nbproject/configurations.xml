@@ -4,11 +4,17 @@
     <df root="." name="0">
       <df name="headers">
         <in>CFigure.h</in>
+        <in>CGameFieldManager.h</in>
         <in>CGridSceneNode.h</in>
+        <in>CMoveByStepAnimator.h</in>
+        <in>CMoveDownAnimator.h</in>
       </df>
       <df name="sources">
         <in>CFigure.cpp</in>
+        <in>CGameFieldManager.cpp</in>
         <in>CGridSceneNode.cpp</in>
+        <in>CMoveByStepAnimator.cpp</in>
+        <in>CMoveDownAnimator.cpp</in>
         <in>irrwidget.cpp</in>
         <in>main.cpp</in>
         <in>mainwindow.cpp</in>
@@ -64,7 +70,13 @@
       </makefileType>
       <item path="headers/CFigure.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="headers/CGameFieldManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="headers/CGridSceneNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="headers/CMoveByStepAnimator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="headers/CMoveDownAnimator.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="moc_irrwidget.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -72,7 +84,13 @@
       </item>
       <item path="sources/CFigure.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="sources/CGameFieldManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="sources/CGridSceneNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/CMoveByStepAnimator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/CMoveDownAnimator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sources/irrwidget.cpp" ex="false" tool="1" flavor2="0">
       </item>

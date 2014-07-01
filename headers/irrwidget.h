@@ -58,7 +58,7 @@ protected:
     ICameraSceneNode* camera;
 
 private:
-
+    
     struct SIrrlichtKey {
         irr::EKEY_CODE code;
         wchar_t ch;
@@ -68,5 +68,7 @@ private:
 
     void sendKeyEventToIrrlicht(QKeyEvent* event, bool pressedDown);
     void sendMouseEventToIrrlicht(QMouseEvent* event, bool pressedDown);
+    
+    irr::s32 lastFPS;
 };
 #endif // QIRRWIDGET_H

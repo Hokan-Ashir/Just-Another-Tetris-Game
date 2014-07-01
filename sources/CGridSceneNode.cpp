@@ -59,7 +59,7 @@ void CGridSceneNode::SGrid::setDefaultMaterial() {
     MeshBuffer->getMaterial().ZWriteEnable = true;
     MeshBuffer->getMaterial().ZBuffer = true;
     MeshBuffer->getMaterial().BackfaceCulling = true;
-    MeshBuffer->getMaterial().AntiAliasing = false;    
+    MeshBuffer->getMaterial().AntiAliasing = false;
 }
 
 bool CGridSceneNode::SGrid::canUseGridLine(irr::f32 pos, bool axisX, const CGridSceneNode * const gridNode) {
@@ -293,6 +293,9 @@ void CGridSceneNode::SGrid::render(irr::video::IVideoDriver * driver) {
 
 CGridSceneNode::CGridSceneNode(ISceneNode* parent, scene::ISceneManager* smgr, s32 id, irr::u32 numGrids)
 : scene::ISceneNode(parent, smgr, id), SelectionMesh(0), SelectionMeshBuffer(0), ShowSelectionOnce(false) {
+#ifdef _DEBUG
+    setDebugName("CGridSceneNode");
+#endif
     // Set the default culling state to Frustum Box
     AutomaticCullingState = scene::EAC_FRUSTUM_BOX;
 

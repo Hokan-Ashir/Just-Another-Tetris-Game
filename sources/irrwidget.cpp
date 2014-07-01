@@ -11,6 +11,8 @@ QWidget(parent) {
     driverType = EDT_OPENGL;
 
     grabKeyboard();
+    
+    lastFPS = -1;
 
     //setMouseTracking(true);
 
@@ -266,7 +268,7 @@ void QirrWidget::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
 }
 
-void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {
+void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {        
     if (device != 0) {
         device->getTimer()->tick();
 
@@ -278,5 +280,21 @@ void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {
         device->getGUIEnvironment()->drawAll();
 
         device->getVideoDriver()->endScene();
+        
+         /*irr::s32 fps = device->getVideoDriver()->getFPS();
+
+            if (lastFPS != fps)
+            {
+                core::stringw str = L"Irrlicht Engine - Quake 3 Map example [";
+                str += device->getVideoDriver()->getName();
+                str += "] FPS:";
+                str += fps;
+
+                QString fpsString = QString::fromWCharArray(str.c_str());
+                std::cout << fpsString.toUtf8().data() << std::endl;
+                setWindowTitle(fpsString);
+                //device->setWindowCaption(str.c_str());
+                lastFPS = fps;
+            }*/
     }
 }

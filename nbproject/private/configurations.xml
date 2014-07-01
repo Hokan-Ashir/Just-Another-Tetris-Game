@@ -6,7 +6,10 @@
       </df>
       <df name="headers">
         <in>CFigure.h</in>
+        <in>CGameFieldManager.h</in>
         <in>CGridSceneNode.h</in>
+        <in>CMoveByStepAnimator.h</in>
+        <in>CMoveDownAnimator.h</in>
         <in>irrwidget.h</in>
         <in>mainwindow.h</in>
       </df>
@@ -18,7 +21,10 @@
       </df>
       <df name="sources">
         <in>CFigure.cpp</in>
+        <in>CGameFieldManager.cpp</in>
         <in>CGridSceneNode.cpp</in>
+        <in>CMoveByStepAnimator.cpp</in>
+        <in>CMoveDownAnimator.cpp</in>
         <in>irrwidget.cpp</in>
         <in>main.cpp</in>
         <in>mainwindow.cpp</in>

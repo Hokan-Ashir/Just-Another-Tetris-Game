@@ -8,9 +8,15 @@
 #include "headers/CFigure.h"
 #include <iostream>
 
+// TODO method with callback function for child-iteration cases
+
 CFigure::CFigure(irr::scene::ISceneNode* parent, irr::scene::ISceneManager* sceneManager, irr::s32 id,
         irr::io::IFileSystem* fileSystem, irr::f32 figureSize, irr::io::path figureFile) :
 irr::scene::ISceneNode(parent, sceneManager, id), figureName(L""), comment(L""), fileSystem(fileSystem), figureParentNode(NULL) {
+#ifdef _DEBUG
+    setDebugName("CFigure");
+#endif
+
     sceneNodeFactory = sceneManager->getSceneNodeFactory(0);
     videoDriver = sceneManager->getVideoDriver();
     this->figureSize = irr::core::vector3df(figureSize, figureSize, figureSize);
@@ -22,12 +28,15 @@ irr::scene::ISceneNode(parent, sceneManager, id), figureName(L""), comment(L""),
         Box = figureParentNode->getBoundingBox();
         nodeType = irr::scene::ESNT_CUBE;
     }
+
+    boxOffset.set(0.0f, 0.0f, 0.0f);
 }
 
 CFigure::~CFigure() {
 }
 
 // TODO closing control
+
 bool CFigure::createFigureFromFile(irr::io::path pathToFile) {
     // clear all children and parent node itself
     if (figureParentNode != NULL) {
@@ -52,9 +61,9 @@ bool CFigure::createFigureFromFile(irr::io::path pathToFile) {
     //while there is more to read
     while (xmlReader->read()) {
         //check the node type
-        switch (xmlReader->getNodeType()) {                
+        switch (xmlReader->getNodeType()) {
             case irr::io::EXN_ELEMENT:
-            {                
+            {
                 if (currentSection.empty() && figureTag.equals_ignore_case(xmlReader->getNodeName())) {
                     currentSection = figureTag;
                     irr::core::stringw typeAttributeValue = xmlReader->getAttributeValueSafe(L"type");
@@ -81,9 +90,8 @@ bool CFigure::createFigureFromFile(irr::io::path pathToFile) {
                     node->setScale(figureSize);
                     figureParentNode = node;
                     currentParentNode = node;
-                }
-                else if (currentSection.equals_ignore_case(figureTag) && sideTag.equals_ignore_case(xmlReader->getNodeName())) {                    
-                    irr::core::stringw typeAttributeValue = xmlReader->getAttributeValueSafe(L"type");                    
+                } else if (currentSection.equals_ignore_case(figureTag) && sideTag.equals_ignore_case(xmlReader->getNodeName())) {
+                    irr::core::stringw typeAttributeValue = xmlReader->getAttributeValueSafe(L"type");
                     if (!typeAttributeValue.empty()
                             && typeAttributeValue.find(irr::core::stringw(L"updownleftrightfrontback").c_str())) {
                         irr::scene::ISceneNode* node = sceneNodeFactory->addSceneNode(nodeType, getParent());
@@ -94,22 +102,22 @@ bool CFigure::createFigureFromFile(irr::io::path pathToFile) {
                         if (typeAttributeValue.equals_ignore_case(irr::core::stringw(L"up"))) {
                             node->setPosition(irr::core::vector3df(0.0f, nodeSize, 0.0f));
                         } else if (typeAttributeValue.equals_ignore_case(irr::core::stringw(L"down"))) {
-
+                            node->setPosition(irr::core::vector3df(0.0f, -nodeSize, 0.0f));
                         } else if (typeAttributeValue.equals_ignore_case(irr::core::stringw(L"right"))) {
                             node->setPosition(irr::core::vector3df(nodeSize, 0.0f, 0.0f));
                         } else if (typeAttributeValue.equals_ignore_case(irr::core::stringw(L"left"))) {
                             node->setPosition(irr::core::vector3df(-nodeSize, 0.0f, 0.0f));
                         } else if (typeAttributeValue.equals_ignore_case(irr::core::stringw(L"front"))) {
-
+                            node->setPosition(irr::core::vector3df(0.0f, 0.0f, nodeSize));
                         } else if (typeAttributeValue.equals_ignore_case(irr::core::stringw(L"back"))) {
-
+                            node->setPosition(irr::core::vector3df(0.0f, 0.0f, -nodeSize));
                         }
                         currentParentNode = node;
                     }
                 }
             }
                 break;
-                
+
             case irr::io::EXN_ELEMENT_END:
                 currentParentNode = currentParentNode->getParent();
                 break;
@@ -124,7 +132,7 @@ bool CFigure::createFigureFromFile(irr::io::path pathToFile) {
         // TODO make notification
         return false;
     }
-    
+
     recalculateBoundingBox();
 
     return true;
@@ -154,7 +162,13 @@ void CFigure::saveNodeChildrenToFile(irr::io::IXMLWriter* writer, irr::scene::IS
 }
 
 // TODO closing control
+
 bool CFigure::saveFigureToFile(irr::io::path pathToFile) {
+    if (!isSolid()) {
+        // TODO make notification
+        return false;
+    }
+
     irr::io::IXMLWriter* xwriter = fileSystem->createXMLWriter(pathToFile);
     if (!xwriter) {
         irr::io::IWriteFile* file = fileSystem->createAndWriteFile(pathToFile);
@@ -192,10 +206,32 @@ bool CFigure::saveFigureToFile(irr::io::path pathToFile) {
 
 void CFigure::recalculateBoundingBox() {
     calculateChildrenBoundingBox(figureParentNode, Box);
-    Box.MinEdge *= figureParentNode->getScale();
-    Box.MaxEdge *= figureParentNode->getScale();
+    boxOffset.set(0.0f, 0.0f, 0.0f);
+    /*std::cout << "__" << std::endl;
+    std::cout << Box.MinEdge.X << std::endl;
+    std::cout << Box.MinEdge.Y << std::endl;
+    std::cout << Box.MinEdge.Z << std::endl;
+
+    std::cout << Box.MaxEdge.X << std::endl;
+    std::cout << Box.MaxEdge.Y << std::endl;
+    std::cout << Box.MaxEdge.Z << std::endl;*/
+
 }
 
+// easy way
+
+/*
+
+ |
+ V
+ 0-0
+   |
+   0-0-0
+       ^
+       |
+ 
+calculate AABB around nodes without children, then combine in the same way 
+ */
 void CFigure::calculateChildrenBoundingBox(irr::scene::ISceneNode* node, irr::core::aabbox3df& aabb) {
     irr::core::vector3df minEdge = node->getBoundingBox().MinEdge;
     irr::core::vector3df maxEdge = node->getBoundingBox().MaxEdge;
@@ -233,6 +269,10 @@ void CFigure::calculateChildrenBoundingBox(irr::scene::ISceneNode* node, irr::co
         childAABB.MaxEdge += (*it)->getPosition();
         childAABB.MinEdge += (*it)->getPosition();
 
+        /*aabb.MaxEdge = childAABB.MaxEdge;//maxEdge;
+    aabb.MinEdge = childAABB.MinEdge;//minEdge;
+    return;*/
+
         if (childAABB.MinEdge.X < minEdge.X) {
             minEdge.X = childAABB.MinEdge.X;
         }
@@ -252,10 +292,257 @@ void CFigure::calculateChildrenBoundingBox(irr::scene::ISceneNode* node, irr::co
         if (childAABB.MaxEdge.Z > maxEdge.Z) {
             maxEdge.Z = childAABB.MaxEdge.Z;
         }
+        /*std::cout << "__" << std::endl;
+        std::cout << minEdge.X << std::endl;
+        std::cout << minEdge.Y << std::endl;
+        std::cout << minEdge.Z << std::endl;
+
+        std::cout << maxEdge.X << std::endl;
+        std::cout << maxEdge.Y << std::endl;
+        std::cout << maxEdge.Z << std::endl;*/
+
+
     }
 
     aabb.MaxEdge = maxEdge;
     aabb.MinEdge = minEdge;
+}
+
+EGF_FIGURE_TYPE CFigure::getFieldFigureType() const {
+    if (nodeType == irr::scene::ESNT_CUBE) {
+        return EGF_CUBE;
+    } else if (nodeType == irr::scene::ESNT_SPHERE) {
+        return EGF_SPHERE;
+    } else {
+        return EGF_EMPTY;
+    }
+}
+
+bool CFigure::isSolid(irr::scene::ISceneNode* node) {
+    irr::core::list<irr::scene::ISceneNode*> children = node->getChildren();
+    for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
+        irr::core::vector3df position = (*it)->getPosition();
+        if (position.getLengthSQ() > (figureSize.X * figureSize.X)) {
+            return false;
+        }
+        if (!isSolid(*it)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool CFigure::isSolid() {
+    return isSolid(figureParentNode);
+}
+
+irr::core::vector3di CFigure::getParentNodeFieldPosition() const {
+    return parentNodeFieldPosition;
+}
+
+void CFigure::setParentNodeFieldPosition(irr::core::vector3di newposition) {
+    parentNodeFieldPosition = newposition;
+    constructNodesFieldPositions(newposition);
+}
+
+bool CFigure::outOfFieldBorders(CGameFieldManager* gameFieldManager, irr::core::vector3di position) {
+    irr::core::vector3di fieldSize = gameFieldManager->getFieldSize();
+    return ((position.X < 0 || position.Y < 0 || position.Z < 0) || ((position.X > fieldSize.X) || (position.Y > fieldSize.Y) || (position.Z > fieldSize.Z)));
+}
+
+void CFigure::construct(irr::scene::ISceneNode* node, irr::core::vector3di nodeFieldPosition) {
+    fieldPositions.push_back(nodeFieldPosition);
+
+    irr::core::list<irr::scene::ISceneNode*> children = node->getChildren();
+    for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
+        irr::core::vector3di childFieldPosition;
+        childFieldPosition.X = ((*it)->getPosition() / figureSize).X;
+        childFieldPosition.Y = ((*it)->getPosition() / figureSize).Y;
+        childFieldPosition.Z = ((*it)->getPosition() / figureSize).Z;
+        childFieldPosition += nodeFieldPosition;
+
+        construct(*it, childFieldPosition);
+    }
+}
+
+void CFigure::constructNodesFieldPositions(irr::core::vector3di parentNodeFieldPosition) {
+    this->parentNodeFieldPosition = parentNodeFieldPosition;
+    if (fieldPositions.size() != 0) {
+        fieldPositions.clear();
+    }
+    construct(figureParentNode, parentNodeFieldPosition);
+    // TODO rewrite helper
+    // we need to sort fieldPositions array, cause it's useful in CMoveDownAnimator:
+    /*
+     example: moving down. Root node, marked as * has field coordinates 5,5,5
+     0-x
+       |
+       *-0-0
+     in this case x has coordinates 5,6,5. So if we sort values we have
+     5,5,5
+     5,6,5
+     ...
+     in such way, when we iterate reversevly through fieldPositions, we move nodes from bottom to top
+     and field fills correctly
+     When we move figure up, we have to iterate forward so field fills from top nodes to bottom
+     
+     So, if we move in "-value" direction, we use reverse iterators, if in "value" direction, we use straignt iterators
+     */
+    fieldPositions.sort();
+}
+
+void CFigure::getExtremePositions(irr::core::vector3di direction, irr::core::array<irr::core::vector3di>& extremePositions) {
+    extremePositions.push_back(fieldPositions[0]);
+    for (irr::u32 i = 1; i < fieldPositions.size(); ++i) {
+        bool newPositionFound = false;
+        for (irr::u32 j = 0; j < extremePositions.size(); ++j) {
+            // sift unnecessary nodes
+            if (// Movement in X axis. Check if other nodes don't have same Y and Z coordinates
+                    (direction.X != 0 && (fieldPositions[i].Y != extremePositions[j].Y || fieldPositions[i].Z != extremePositions[j].Z)) ||
+                    // Movement in Y axis. Check if other nodes don't have same X and Z coordinates
+                    (direction.Y != 0 && (fieldPositions[i].X != extremePositions[j].X || fieldPositions[i].Z != extremePositions[j].Z)) ||
+                    // Movement in Z axis. Check if other nodes don't have same X and Y coordinates
+                    (direction.Z != 0 && (fieldPositions[i].X != extremePositions[j].X || fieldPositions[i].Y != extremePositions[j].Y))) {
+                /*extremePositions.push_back(fieldPositions[i]);
+                newPositionFound = true;
+                break; */
+                continue;
+            }
+            
+            /*std::cout << "ffffffffffff " << i << std::endl;
+            std::cout << fieldPositions[i].X << std::endl;
+            std::cout << fieldPositions[i].Y << std::endl;
+            std::cout << fieldPositions[i].Z << std::endl;
+            
+            std::cout << "eeeeeeeeeeeeeee " << j << std::endl;
+            std::cout << extremePositions[j].X << std::endl;
+            std::cout << extremePositions[j].Y << std::endl;
+            std::cout << extremePositions[j].Z << std::endl;*/
+            
+            // cause we try to find most right/up/down/etc. nodes, one if-statement is all we need
+            if (// movement in left direction, seek for more left position
+                    (direction.X < 0 && (fieldPositions[i].X < extremePositions[j].X)) ||
+                    // movement in right direction, seek for more right position
+                    (direction.X > 0 && (fieldPositions[i].X > extremePositions[j].X)) ||
+                    // movement in down direction, seek ----//-----
+                    (direction.Y < 0 && (fieldPositions[i].Y < extremePositions[j].Y)) ||
+                    // movement in up direction
+                    (direction.Y > 0 && (fieldPositions[i].Y > extremePositions[j].Y)) ||
+                    // movement in back direction
+                    (direction.Z < 0 && (fieldPositions[i].Z < extremePositions[j].Z)) ||
+                    // movement in front direction
+                    (direction.Z > 0 && (fieldPositions[i].Z > extremePositions[j].Z))) {
+                extremePositions[j] = fieldPositions[i];                              
+            }
+            newPositionFound = true;  
+            break;
+            //newPositionFound = true;
+        }
+        
+        // found nothing in extreme positions array
+        if (!newPositionFound) {
+            extremePositions.push_back(fieldPositions[i]);
+        }
+    } 
+}
+
+// simplier way
+
+/*
+ construct list<vector3di> fieldPositions of _every_ node, every time figure reconstructs
+ * figure change root node position on field
+ * figure loses its nodes
+ 
+ run through it if you want to get extreme positions 
+ */
+
+bool CFigure::isPossibleToMoveInDirection(CGameFieldManager* gameFieldManager, irr::core::vector3di direction, irr::scene::ISceneNode* node, irr::core::vector3di nodeFieldPosition, irr::core::list<irr::core::vector3di>& nextFieldPositions) {
+    irr::core::vector3di nextNodeFieldPosition = nodeFieldPosition + direction;
+    if (outOfFieldBorders(gameFieldManager, nextNodeFieldPosition)) {
+        return false;
+    }
+
+    // check if already exists more up/low/right/left/etc.-direction field position
+    /*
+     example:
+     we try to move this figure in right direction. "x" is root node
+     0-0
+       |
+       x-0-*
+     
+     so we have to check if current node (marked as *) has more righter direction than others (on same line, cause we more in right direction)
+     if we have to check nodes in down direction, we should check possible current node competitors in vertical line with current node    
+     */
+    bool positionFound = false;
+    for (irr::core::list<irr::core::vector3di>::Iterator it = nextFieldPositions.begin(); it != nextFieldPositions.end(); ++it) {
+        // sift unnecessary nodes
+        if (// Movement in X axis. Check if other nodes don't have same Y and Z coordinates
+                (direction.X != 0 && ((*it).Y != nextNodeFieldPosition.Y || (*it).Z != nextNodeFieldPosition.Z)) ||
+                // Movement in Y axis. Check if other nodes don't have same X and Z coordinates
+                (direction.Y != 0 && ((*it).X != nextNodeFieldPosition.X || (*it).Z != nextNodeFieldPosition.Z)) ||
+                // Movement in Z axis. Check if other nodes don't have same X and Y coordinates
+                (direction.Z != 0 && ((*it).X != nextNodeFieldPosition.X || (*it).Y != nextNodeFieldPosition.Y))) {
+            continue;
+        }
+
+        // cause we try to find most right/up/down/etc. nodes, one if-statement is all we need
+        if (// movement in left direction, seek for more left position
+                (direction.X < 0 && nextNodeFieldPosition.X < (*it).X) ||
+                // movement in right direction, seek for more right position
+                (direction.X > 0 && nextNodeFieldPosition.X > (*it).X) ||
+                // movement in down direction, seek ----//-----
+                (direction.Y < 0 && nextNodeFieldPosition.Y < (*it).Y) ||
+                // movement in up direction
+                (direction.Y > 0 && nextNodeFieldPosition.Y > (*it).Y) ||
+                // movement in back direction
+                (direction.Z < 0 && nextNodeFieldPosition.Z < (*it).Z) ||
+                // movement in front direction
+                (direction.Z > 0 && nextNodeFieldPosition.Z > (*it).Z)) {
+            // if all is fine and we attempt to replace extreme position, check is field in this position empty
+            if (gameFieldManager->getFieldValue(nextNodeFieldPosition) != EGF_EMPTY) {
+                return false;
+            }
+            nextFieldPositions.insert_before(it, nextNodeFieldPosition);
+            nextFieldPositions.erase(it);
+            break;
+        }
+        positionFound = true;
+    }
+
+    // in case of empty list or no other in-one-line nodes
+    if (!positionFound) {
+        // check if this position filled with something
+        if (gameFieldManager->getFieldValue(nextNodeFieldPosition) != EGF_EMPTY) {
+            return false;
+        }
+        nextFieldPositions.push_back(nextNodeFieldPosition);
+    }
+
+    irr::core::list<irr::scene::ISceneNode*> children = node->getChildren();
+    for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
+        irr::core::vector3di childFieldPosition;
+        childFieldPosition.X = ((*it)->getPosition() / figureSize).X;
+        childFieldPosition.Y = ((*it)->getPosition() / figureSize).Y;
+        childFieldPosition.Z = ((*it)->getPosition() / figureSize).Z;
+        childFieldPosition += nodeFieldPosition;
+        /*if (outOfFieldBorders(gameFieldManager, childFieldPosition + direction)) {
+            return false;
+        }
+
+        if (gameFieldManager->getFieldValue(nodeFieldPosition + direction) != EGF_FIGURE_TYPE::EGF_EMPTY) {
+            return false;
+        }*/
+
+        if (!isPossibleToMoveInDirection(gameFieldManager, direction, *it, childFieldPosition, nextFieldPositions)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool CFigure::isPossibleToMoveInDirection(CGameFieldManager* gameFieldManager, irr::core::vector3di direction, irr::core::list<irr::core::vector3di>& nextFieldPositions) {
+    return isPossibleToMoveInDirection(gameFieldManager, direction, figureParentNode, parentNodeFieldPosition, nextFieldPositions);
 }
 
 void CFigure::OnRegisterSceneNode() {
@@ -274,29 +561,50 @@ void CFigure::render() {
         videoDriver->setMaterial(m);
 
         if (DebugDataVisible & irr::scene::EDS_BBOX) {
-            videoDriver->draw3DBox(Box, irr::video::SColor(255, 255, 255, 255));
+            videoDriver->draw3DBox(getTransformedBoundingBox(), irr::video::SColor(255, 255, 255, 255));
         }
     }
 }
 
 void CFigure::setPosition(const irr::core::vector3df& newpos) {
     figureParentNode->setPosition(newpos);
-    //(*figureNodes.begin())->setRotation(irr::core::vector3df(0.0f, 90.0f, 0.0f));
+}
 
-    //(*figureNodes.begin())->addAnimator(SceneManager->createFlyStraightAnimator((*figureNodes.begin())->getPosition(), (*figureNodes.begin())->getPosition() + 100, 10000));       
-    //removeNodeFromFigure(*figureNodes.getLast());   
-    /*if (figureNodes.size() != 0) {
-        removeNodeFromFigure(*(figureNodes.begin() + 1)); 
-    } */
-    if (figureParentNode != 0) {
-        figureParentNode->addAnimator(SceneManager->createFlyStraightAnimator(figureParentNode->getPosition(), figureParentNode->getPosition() + 100, 10000));
-    }
-    removeNodeFromFigure(figureParentNode); //*figureParentNode->getChildren().getLast());
-
+const irr::core::vector3df& CFigure::getPosition() const {
+    return figureParentNode->getPosition();
 }
 
 const irr::core::aabbox3d<irr::f32>& CFigure::getBoundingBox() const {
     return Box;
+}
+
+const irr::core::aabbox3d<irr::f32> CFigure::getTransformedBoundingBox() const {
+    irr::core::aabbox3df box = Box;
+    /*std::cout << "positi parent" << std::endl;
+    std::cout << figureParentNode->getPosition().X << std::endl;
+    std::cout << figureParentNode->getPosition().Y << std::endl;
+    std::cout << figureParentNode->getPosition().Z << std::endl;*/
+
+    irr::core::matrix4 transformationMatrix = figureParentNode->getRelativeTransformation();
+    /*std::cout << transformationMatrix.getTranslation().X << std::endl;
+    std::cout << transformationMatrix.getTranslation().Y << std::endl;
+    std::cout << transformationMatrix.getTranslation().Z << std::endl;
+    transformationMatrix.setTranslation(transformationMatrix.getTranslation() + boxOffset);
+    std::cout << transformationMatrix.getTranslation().X << std::endl;
+    std::cout << transformationMatrix.getTranslation().Y << std::endl;
+    std::cout << transformationMatrix.getTranslation().Z << std::endl;*/
+    transformationMatrix.transformBoxEx(box);
+    box.MinEdge += boxOffset;
+    box.MaxEdge += boxOffset;
+    /*    std::cout << "positi box" << std::endl;
+    std::cout << box.MinEdge.X << std::endl;
+    std::cout << box.MinEdge.Y << std::endl;
+    std::cout << box.MinEdge.Z << std::endl;
+    
+    std::cout << box.MaxEdge.X << std::endl;
+    std::cout << box.MaxEdge.Y << std::endl;
+    std::cout << box.MaxEdge.Z << std::endl;*/
+    return box;
 }
 
 irr::u32 CFigure::getMaterialCount() const {
@@ -364,6 +672,14 @@ const irr::core::vector3df& CFigure::getScale() const {
     return figureParentNode->getScale();
 }
 
+const irr::core::vector3df& CFigure::getRotation() const {
+    return figureParentNode->getRotation();
+}
+
+void CFigure::setRotation(const irr::core::vector3df& rotation) {
+    figureParentNode->setRotation(rotation);
+}
+
 void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool withIntegrityCheck) {
     if (figureParentNode == NULL) {
         return;
@@ -372,9 +688,11 @@ void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool wi
     // if node has no children - simply remove
     if (nodeToDelete->getChildren().size() == 0) {
         nodeToDelete->remove();
+        recalculateBoundingBox();
+        constructNodesFieldPositions(parentNodeFieldPosition);
         return;
     }
-    
+
     // if withIntegrityCheck == "true", you can't delete nodes that has children
     if (withIntegrityCheck) {
         return;
@@ -391,15 +709,19 @@ void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool wi
             (*it)->setParent(figureParentNode);
             (*it)->setPosition(newposition);
         }
-        
+
+        parentNodeFieldPosition.X += (figureParentNode->getPosition() / nodeToDelete->getScale()).X;
+        parentNodeFieldPosition.Y += (figureParentNode->getPosition() / nodeToDelete->getScale()).Y;
+        parentNodeFieldPosition.Z += (figureParentNode->getPosition() / nodeToDelete->getScale()).Z;
+        boxOffset = -(figureParentNode->getPosition() * nodeToDelete->getScale());
         figureParentNode->setParent(nodeToDelete->getParent());
-        figureParentNode->setPosition(nodeToDelete->getPosition());
+        figureParentNode->setPosition(nodeToDelete->getPosition() + (figureParentNode->getPosition() * nodeToDelete->getScale()));
         figureParentNode->setScale(nodeToDelete->getScale());
         irr::scene::ISceneNodeAnimatorList animators = nodeToDelete->getAnimators();
         for (irr::scene::ISceneNodeAnimatorList::Iterator it = animators.begin(); it != animators.end(); ++it) {
             figureParentNode->addAnimator(*it);
         }
-    } else {        
+    } else {
         for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
             irr::core::vector3df newposition = (*it)->getPosition() + nodeToDelete->getPosition();
             (*it)->setParent(nodeToDelete->getParent());
@@ -407,6 +729,7 @@ void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool wi
         }
     }
 
+    constructNodesFieldPositions(parentNodeFieldPosition);
     nodeToDelete->remove();
 }
 
