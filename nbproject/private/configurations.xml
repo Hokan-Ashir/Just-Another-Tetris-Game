@@ -6,10 +6,15 @@
       </df>
       <df name="headers">
         <in>CFigure.h</in>
+        <in>CGameApplication.h</in>
         <in>CGameFieldManager.h</in>
+        <in>CGameFiguresFactory.h</in>
+        <in>CGameManager.h</in>
+        <in>CGridBox.h</in>
         <in>CGridSceneNode.h</in>
         <in>CMoveByStepAnimator.h</in>
         <in>CMoveDownAnimator.h</in>
+        <in>CUserInputEventReceiver.h</in>
         <in>irrwidget.h</in>
         <in>mainwindow.h</in>
       </df>
@@ -21,10 +26,15 @@
       </df>
       <df name="sources">
         <in>CFigure.cpp</in>
+        <in>CGameApplication.cpp</in>
         <in>CGameFieldManager.cpp</in>
+        <in>CGameFiguresFactory.cpp</in>
+        <in>CGameManager.cpp</in>
+        <in>CGridBox.cpp</in>
         <in>CGridSceneNode.cpp</in>
         <in>CMoveByStepAnimator.cpp</in>
         <in>CMoveDownAnimator.cpp</in>
+        <in>CUserInputEventReceiver.cpp</in>
         <in>irrwidget.cpp</in>
         <in>main.cpp</in>
         <in>mainwindow.cpp</in>
@@ -59,8 +69,6 @@
         <gdb_interceptlist>
           <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
         </gdb_interceptlist>
-        <gdb_signals>
-        </gdb_signals>
         <gdb_options>
           <DebugOptions>
           </DebugOptions>

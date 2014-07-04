@@ -18,10 +18,9 @@
 
 enum EGF_FIGURE_TYPE {
     EGF_EMPTY = 0,
-
     EGF_CUBE,
-
-    EGF_SPHERE
+    EGF_SPHERE,
+    EGF_NOT_EMPTY
 };
 
 class CGameFieldManager {
@@ -39,9 +38,12 @@ public:
     CGameFieldManager(irr::core::vector3di fieldSize);
     virtual ~CGameFieldManager();
 
+    // TODO round field size, so it can be divided by 2
     void setFieldSize(irr::s32 x, irr::s32 y, irr::s32 z);
 
-    void deleteNodes(bool twoDimensionalMode);
+    // player has constructed plane (3d-mode) or line (2d-mode) of same elemental blocks
+    // so we get list of nodes which must be deleted
+    void getLinesToDelete(bool twoDimensionalMode, EGF_FIGURE_TYPE figureType, irr::core::array<irr::s32>& linesToDelete);
 
     irr::u8 getFieldValue(irr::s32 x, irr::s32 y, irr::s32 z) const;
 
@@ -54,7 +56,7 @@ public:
     void clearField(irr::u8 value = EGF_EMPTY);
 
     irr::core::vector3di getFieldSize() const;
-    
+
     // TODO remove in production
     void printField();
 
@@ -72,31 +74,21 @@ private:
     // player construct whole line
     // used for 2d-mode
 
-    bool hasLineSameValues(irr::s32 lineNumber);
+    bool hasLineSameValues(irr::s32 lineNumber, EGF_FIGURE_TYPE value);
 
     // check if plane has same values (used for getting list of node to delete)
     // player construct whole plane
     // used for 3d-mode
-    bool hasPlaneSameValues(irr::s32 planeNumber);
+    bool hasPlaneSameValues(irr::s32 planeNumber, EGF_FIGURE_TYPE value);
 
-    // player has constructed plane (3d-mode) or line (2d-mode) of same elemental blocks
-    // so we get list of nodes which must be deleted
-    void getNodesToDelete(bool twoDimensionalMode, irr::core::array<irr::scene::ISceneNode*>& outNodes);
+    bool hasLineNonEmptyValues(irr::s32 lineNumber);
+    bool hasPlaneNonEmptyValues(irr::s32 planeNumber);
 private:
     irr::core::array<irr::u32> field;
 
     irr::s32 currentSizeX;
     irr::s32 currentSizeY;
     irr::s32 currentSizeZ;
-
-    // TODO get via terrain->getPosition().Y
-    irr::s32 fieldYPosition;
-
-    irr::scene::ISceneManager* sceneManager;
-
-    // TODO get via aabb
-    irr::s32 elementalBlockSize;
-    irr::core::stringc elementalBlockName;
 };
 
 #endif	/* CGAMEFIELDMANAGER_H */

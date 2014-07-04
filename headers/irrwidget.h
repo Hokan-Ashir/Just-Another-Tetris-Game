@@ -1,5 +1,8 @@
 #ifndef QIRRWIDGET_H
 #define QIRRWIDGET_H
+
+#include "CGameApplication.h"
+
 #include <QWidget>
 #include <QResizeEvent>
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -54,10 +57,9 @@ protected:
     E_DRIVER_TYPE driverType;
     //указатель на устройство Иррлихта
     IrrlichtDevice *device;
-    //камера сцены
-    ICameraSceneNode* camera;
 
 private:
+    CGameApplication* gameApplication;
     
     struct SIrrlichtKey {
         irr::EKEY_CODE code;

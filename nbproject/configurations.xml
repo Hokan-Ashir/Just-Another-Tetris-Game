@@ -4,17 +4,27 @@
     <df root="." name="0">
       <df name="headers">
         <in>CFigure.h</in>
+        <in>CGameApplication.h</in>
         <in>CGameFieldManager.h</in>
+        <in>CGameFiguresFactory.h</in>
+        <in>CGameManager.h</in>
+        <in>CGridBox.h</in>
         <in>CGridSceneNode.h</in>
         <in>CMoveByStepAnimator.h</in>
         <in>CMoveDownAnimator.h</in>
+        <in>CUserInputEventReceiver.h</in>
       </df>
       <df name="sources">
         <in>CFigure.cpp</in>
+        <in>CGameApplication.cpp</in>
         <in>CGameFieldManager.cpp</in>
+        <in>CGameFiguresFactory.cpp</in>
+        <in>CGameManager.cpp</in>
+        <in>CGridBox.cpp</in>
         <in>CGridSceneNode.cpp</in>
         <in>CMoveByStepAnimator.cpp</in>
         <in>CMoveDownAnimator.cpp</in>
+        <in>CUserInputEventReceiver.cpp</in>
         <in>irrwidget.cpp</in>
         <in>main.cpp</in>
         <in>mainwindow.cpp</in>
@@ -70,7 +80,15 @@
       </makefileType>
       <item path="headers/CFigure.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="headers/CGameApplication.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="headers/CGameFieldManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="headers/CGameFiguresFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="headers/CGameManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="headers/CGridBox.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="headers/CGridSceneNode.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -78,19 +96,34 @@
       </item>
       <item path="headers/CMoveDownAnimator.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="headers/CUserInputEventReceiver.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="moc_irrwidget.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="moc_mainwindow.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sources/CFigure.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="sources/CGameApplication.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="sources/CGameFieldManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/CGameFiguresFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/CGameManager.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/CGridBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sources/CGridSceneNode.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sources/CMoveByStepAnimator.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sources/CMoveDownAnimator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sources/CUserInputEventReceiver.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="sources/irrwidget.cpp" ex="false" tool="1" flavor2="0">
       </item>

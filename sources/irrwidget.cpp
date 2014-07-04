@@ -1,4 +1,5 @@
 #include "headers/irrwidget.h"
+#include "headers/CGameApplication.h"
 
 #include <iostream>
 
@@ -11,7 +12,7 @@ QWidget(parent) {
     driverType = EDT_OPENGL;
 
     grabKeyboard();
-    
+
     lastFPS = -1;
 
     //setMouseTracking(true);
@@ -22,6 +23,8 @@ QWidget(parent) {
 }
 
 QirrWidget::~QirrWidget() {
+    //delete gameApplication;
+
     if (device != 0) {
         device->closeDevice();
         device->drop();
@@ -52,14 +55,8 @@ void QirrWidget::init() {
     //Создание устройства по заданным параметрам
     device = createDeviceEx(params);
 
-    QString c = QString("width %1, height %2").arg(width()).arg(height());
     device->getLogger()->setLogLevel(irr::ELL_INFORMATION);
-    device->getLogger()->log(c.toUtf8().data());
-    // qDebug() << "widget ID " << showbase << hex << winId();
-    //qDebug() << "win ID " << params.WindowId;
 
-    //Добавим на сцену статическую камеру
-    //camera = device->getSceneManager()->addCameraSceneNode(0, vector3df(0, 30, -40), vector3df(0, 5, 0));
     //задаем атрибут для виджета
     //значение WA_OpaquePaintEvent указывает, что виджет рисует все его пиксели, когда он получает событие рисования
     setAttribute(Qt::WA_OpaquePaintEvent);
@@ -69,6 +66,10 @@ void QirrWidget::init() {
     //3 параметр - указатель на получателя сигнала
     //4 параметр - слот. Функция, вызываемая в ответ на сигнал
     connect(this, SIGNAL(updateIrrlichtQuery(IrrlichtDevice*)), this, SLOT(updateIrrlicht(IrrlichtDevice*)));
+
+    gameApplication = new CGameApplication();
+    gameApplication->initialize(device);
+
     //Запускает таймер с заданным интревалом.
     //Если интервал равен 0, тогда событие таймера происходит один раз, когда
     //для обработки нет больше событий окна.
@@ -268,7 +269,7 @@ void QirrWidget::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
 }
 
-void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {        
+void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {
     if (device != 0) {
         device->getTimer()->tick();
 
@@ -280,21 +281,31 @@ void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {
         device->getGUIEnvironment()->drawAll();
 
         device->getVideoDriver()->endScene();
-        
-         /*irr::s32 fps = device->getVideoDriver()->getFPS();
 
-            if (lastFPS != fps)
-            {
-                core::stringw str = L"Irrlicht Engine - Quake 3 Map example [";
-                str += device->getVideoDriver()->getName();
-                str += "] FPS:";
-                str += fps;
+        if (!gameApplication->gameLoopIteration()) {
+            // game is over
+            //delete gameApplication;
 
-                QString fpsString = QString::fromWCharArray(str.c_str());
-                std::cout << fpsString.toUtf8().data() << std::endl;
-                setWindowTitle(fpsString);
-                //device->setWindowCaption(str.c_str());
-                lastFPS = fps;
+            /*if (device != 0) {
+                device->closeDevice();
+                device->drop();
             }*/
+                  
+        }
+        /*irr::s32 fps = device->getVideoDriver()->getFPS();
+
+           if (lastFPS != fps)
+           {
+               core::stringw str = L"Irrlicht Engine - Quake 3 Map example [";
+               str += device->getVideoDriver()->getName();
+               str += "] FPS:";
+               str += fps;
+
+               QString fpsString = QString::fromWCharArray(str.c_str());
+               std::cout << fpsString.toUtf8().data() << std::endl;
+               setWindowTitle(fpsString);
+               //device->setWindowCaption(str.c_str());
+               lastFPS = fps;
+           }*/
     }
 }

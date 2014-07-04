@@ -32,6 +32,9 @@ public:
     irr::u32 getStep() const;
     void setStep(irr::u32 step);
     
+    irr::f32 getDelay() const;
+    void setDelay(irr::f32 delay);
+    
 protected:
     irr::core::vector3di directionStep;
     irr::u32 delay;
@@ -39,6 +42,7 @@ protected:
 
 private:
     bool outOfFieldBorders(irr::core::vector3di position);
+    bool outOfBottomFieldBorders(irr::core::vector3di position);
     private:
     CGameFieldManager* gameFieldManager;
     bool twoDimensionalMode;
