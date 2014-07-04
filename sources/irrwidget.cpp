@@ -7,72 +7,53 @@ QirrWidget::QirrWidget(QWidget *parent) :
 QWidget(parent) {
     setAttribute(Qt::WA_PaintOnScreen);
 
-    device = 0;
-    // задаем тип драйвера
-    driverType = EDT_OPENGL;
-
+    device = NULL;
+    driverType = irr::video::EDT_OPENGL;
     grabKeyboard();
 
     lastFPS = -1;
-
-    //setMouseTracking(true);
-
-    //TODO focus policy
-    //setFocusPolicy(Qt::StrongFocus);
-    //grabMouse();
 }
 
 QirrWidget::~QirrWidget() {
     //delete gameApplication;
 
-    if (device != 0) {
+    if (device != NULL) {
         device->closeDevice();
         device->drop();
     }
 }
 
 void QirrWidget::init() {
-    //Инициализация должна быть только один раз
-    if (device != 0)
+    if (device != NULL) {
         return;
-    //параметры для создания устройства
+    }
+
     SIrrlichtCreationParameters params;
     params.Bits = 32;
     params.Doublebuffer = true;
-    //тип драйвера
     params.DriverType = driverType;
     params.EventReceiver = 0;
     params.Fullscreen = false;
     params.IgnoreInput = false;
     params.Stencilbuffer = true;
     params.Stereobuffer = false;
-    //указатель на окно в котором будет выводиться графика
     params.WindowId = reinterpret_cast<void*> (this->winId());
-    //Ширина и высота окна Иррлихта равны высоте и ширине виджета
     params.WindowSize.Width = width();
     params.WindowSize.Height = height();
 
-    //Создание устройства по заданным параметрам
     device = createDeviceEx(params);
 
     device->getLogger()->setLogLevel(irr::ELL_INFORMATION);
 
-    //задаем атрибут для виджета
-    //значение WA_OpaquePaintEvent указывает, что виджет рисует все его пиксели, когда он получает событие рисования
     setAttribute(Qt::WA_OpaquePaintEvent);
-    //связываем сигнал с нужным слотом
-    //1 параметр - указатель отправителя сигнала
-    //2 параметр - функция сигнала
-    //3 параметр - указатель на получателя сигнала
-    //4 параметр - слот. Функция, вызываемая в ответ на сигнал
+
     connect(this, SIGNAL(updateIrrlichtQuery(IrrlichtDevice*)), this, SLOT(updateIrrlicht(IrrlichtDevice*)));
 
     gameApplication = new CGameApplication();
-    gameApplication->initialize(device);
+    if (!gameApplication->initialize(device)) {
+        return;
+    }
 
-    //Запускает таймер с заданным интревалом.
-    //Если интервал равен 0, тогда событие таймера происходит один раз, когда
-    //для обработки нет больше событий окна.
     startTimer(0);
 }
 
@@ -81,8 +62,7 @@ IrrlichtDevice* QirrWidget::getIrrlichtDevice() {
 }
 
 void QirrWidget::paintEvent(QPaintEvent* event) {
-    if (device != 0) {
-        //посылаем сигнал запроса на обновление кадра
+    if (device != NULL) {
         emit updateIrrlichtQuery(device);
     }
 }
@@ -150,17 +130,15 @@ void QirrWidget::sendKeyEventToIrrlicht(QKeyEvent* event, bool pressedDown) {
 }
 
 void QirrWidget::keyReleaseEvent(QKeyEvent *event) {
-    if (device != 0) {
+    if (device != NULL) {
         sendKeyEventToIrrlicht(event, false);
-        device->getLogger()->log(event->text().toUtf8().data());
     }
     event->ignore();
 }
 
 void QirrWidget::keyPressEvent(QKeyEvent *event) {
-    if (device != 0) {
+    if (device != NULL) {
         sendKeyEventToIrrlicht(event, true);
-        device->getLogger()->log(event->text().toUtf8().data());
     }
     event->ignore();
 }
@@ -189,32 +167,27 @@ void QirrWidget::sendMouseEventToIrrlicht(QMouseEvent* event, bool pressedDown) 
 
     irrEvent.MouseInput.X = event->x();
     irrEvent.MouseInput.Y = event->y();
-    irrEvent.MouseInput.Wheel = 0.0f; // Zero is better than undefined
-
-    QString mouseString = QString("x %1, y %2").arg(event->x()).arg(event->y());
-    device->getLogger()->log(mouseString.toUtf8().data());
+    irrEvent.MouseInput.Wheel = 0.0f; // Zero is better than undefined    
 
     device->postEventFromUser(irrEvent);
 }
 
 void QirrWidget::mousePressEvent(QMouseEvent* event) {
-    if (device != 0) {
+    if (device != NULL) {
         sendMouseEventToIrrlicht(event, true);
-        //device->getLogger()->log(event->text().toUtf8().data());
     }
     event->ignore();
 }
 
 void QirrWidget::mouseReleaseEvent(QMouseEvent* event) {
-    if (device != 0) {
+    if (device != NULL) {
         sendMouseEventToIrrlicht(event, false);
-        //device->getLogger()->log(event->button()toUtf8().data());
     }
     event->ignore();
 }
 
 void QirrWidget::mouseMoveEvent(QMouseEvent *event) {
-    if (device != 0) {
+    if (device != NULL) {
         irr::SEvent irrEvent;
 
         irrEvent.EventType = irr::EET_MOUSE_INPUT_EVENT;
@@ -229,7 +202,7 @@ void QirrWidget::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void QirrWidget::wheelEvent(QWheelEvent* event) {
-    if (device != 0 && event->orientation() == Qt::Vertical) {
+    if (device != NULL && event->orientation() == Qt::Vertical) {
         irr::SEvent irrEvent;
 
         irrEvent.EventType = irr::EET_MOUSE_INPUT_EVENT;
@@ -245,32 +218,38 @@ void QirrWidget::wheelEvent(QWheelEvent* event) {
 }
 
 void QirrWidget::timerEvent(QTimerEvent* event) {
-    if (device != 0) {
-        //посылаем сигнал запроса на обновление кадра
+    if (device != NULL) {
         emit updateIrrlichtQuery(device);
     }
     event->accept();
 }
 
 void QirrWidget::resizeEvent(QResizeEvent* event) {
-    if (device != 0) {
-        //Для задаем новые размеры окна вывода в соотвествии с новым размером виджета
-        dimension2d<u32> widgetSize;
-        widgetSize.Width = event->size().width();
-        widgetSize.Height = event->size().height();
-        device->getVideoDriver()->OnResize(widgetSize);
-        ICameraSceneNode *cam = device->getSceneManager()->getActiveCamera();
+    if (device != NULL) {
+        irr::core::dimension2d<unsigned int> size;
+        if (event->size().height() < event->size().width()) {
+            size.Width = event->size().height();
+            size.Height = event->size().height();
+        } else if (event->size().height() > event->size().width()) {
+            size.Width = event->size().width();
+            size.Height = event->size().width();
+        } else if (event->size().height() == event->size().width()) {
+            size.Width = event->size().width();
+            size.Height = event->size().height();
+        }
+        device->getVideoDriver()->OnResize(size);
+        resize(size.Width, size.Height);
+
+        irr::scene::ICameraSceneNode *cam = device->getSceneManager()->getActiveCamera();
         if (cam != 0) {
-            //Задаем формат экрана. Соотношение его ширины к высоте
-            cam->setAspectRatio((f32) widgetSize.Height / (f32) widgetSize.Width);
+            cam->setAspectRatio(size.Height / size.Width);
         }
     }
-    //Вызываем событие изменения размера виджета
     QWidget::resizeEvent(event);
 }
 
 void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {
-    if (device != 0) {
+    if (device != NULL) {
         device->getTimer()->tick();
 
         irr::video::SColor color(0, 0, 0, 0);
@@ -290,22 +269,6 @@ void QirrWidget::updateIrrlicht(irr::IrrlichtDevice* device) {
                 device->closeDevice();
                 device->drop();
             }*/
-                  
         }
-        /*irr::s32 fps = device->getVideoDriver()->getFPS();
-
-           if (lastFPS != fps)
-           {
-               core::stringw str = L"Irrlicht Engine - Quake 3 Map example [";
-               str += device->getVideoDriver()->getName();
-               str += "] FPS:";
-               str += fps;
-
-               QString fpsString = QString::fromWCharArray(str.c_str());
-               std::cout << fpsString.toUtf8().data() << std::endl;
-               setWindowTitle(fpsString);
-               //device->setWindowCaption(str.c_str());
-               lastFPS = fps;
-           }*/
     }
 }

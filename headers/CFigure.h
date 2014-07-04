@@ -105,22 +105,18 @@ public:
     
     irr::core::stringw getFigureName() const;
 
-    // TODO make private
-    void removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool withIntegrityCheck = false);
- irr::scene::ISceneNode* figureParentNode;
+    // TODO make private    
  irr::core::array<irr::core::vector3di> fieldPositions;
  irr::core::vector3di parentNodeFieldPosition;
  // find node by offset from root node
     irr::scene::ISceneNode* getNodeByOffset(irr::core::vector3di offset);
     
-    bool g();
-    irr::scene::ISceneNode* gparent;
-    irr::core::vector3di goffset;
+    bool isFigureCollapse();        
 private:
     void setCubeColour(irr::scene::ISceneNode* node, irr::video::SColor colour, irr::u32 borderSize = 5);
     // if withIntegrityCheck set to "true", you can't delete nodes that has children, used in editor \
     // cause elements in user created figures must be connected
-    
+    void removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool withIntegrityCheck = false);
     void setTextureToNodeChildren(irr::scene::ISceneNode* node, irr::video::ITexture* texture, irr::video::SColor colour);
     void recalculateBoundingBox();
     void calculateChildrenBoundingBox(irr::scene::ISceneNode* node, irr::core::aabbox3df& aabb);
@@ -130,6 +126,8 @@ private:
     void construct(irr::scene::ISceneNode* node, irr::core::vector3di nodeFieldPosition);
     
     irr::scene::ISceneNode* getNodeByOffset(irr::scene::ISceneNode* node, irr::core::vector3di offset);
+    
+    void collapseNodes(irr::scene::ISceneNode* node, irr::core::vector3di vector);
 
 private:
     // not size exactly, but scale factor, cause we create all figures dynamicly via SceneNodeFactory, which
@@ -147,7 +145,8 @@ private:
    
     irr::video::IVideoDriver* videoDriver;
     bool fieldPositionChanged;
-        
+    irr::scene::ISceneNode* figureParentNode;
+    irr::scene::ISceneNode* collapsableNode;    
 };
 
 #endif	/* CFIGURE_H */

@@ -21,6 +21,7 @@ public:
     
     irr::scene::ISceneManager* getSceneManager() const;
     irr::scene::ISceneNode* getFiguresParentNode() const;
+    irr::io::IFileSystem* getFileSystem() const;
 private:
     irr::core::array<irr::video::SColor> colours;    
     irr::IRandomizer* randomizer;

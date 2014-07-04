@@ -6,6 +6,7 @@
  */
 
 #include "headers/CFigure.h"
+#include "headers/Manipulators.h"
 #include <iostream>
 
 // TODO method with callback function for child-iteration cases
@@ -31,7 +32,7 @@ irr::scene::ISceneNode(parent, sceneManager, id), figureName(L""), comment(L""),
 
     boxOffset.set(0.0f, 0.0f, 0.0f);
     fieldPositionChanged = false;
-    gparent = NULL;
+    collapsableNode = NULL;
 }
 
 CFigure::~CFigure() {
@@ -378,8 +379,7 @@ void CFigure::construct(irr::scene::ISceneNode* node, irr::core::vector3di nodeF
                 tempVector.rotateXYBy(getRotation().Z, irr::core::vector3di(0, 0, 0));
                 childFieldPosition += tempVector;
             }
-        }
-        std::cout << "childFieldPosition. " << childFieldPosition.X << ", " << childFieldPosition.Y << ", " << childFieldPosition.Z << std::endl;
+        }        
         childFieldPosition += nodeFieldPosition;
 
         construct(*it, childFieldPosition);
@@ -568,26 +568,21 @@ void CFigure::setTextureToNodeChildren(irr::scene::ISceneNode* node, irr::video:
 void CFigure::applyTextureToFigure(const irr::io::path& textureFileName, irr::video::SColor colour) {
     // TODO check this stuff
     irr::video::ITexture* texture = videoDriver->getTexture(textureFileName);
-    irr::video::ITexture* newTexture = videoDriver->addTexture(irr::core::dimension2du(texture->getSize().Width, texture->getSize().Height), "newTexture", texture->getColorFormat());
-    irr::video::ITexture* newTexture2 = videoDriver->addTexture(irr::core::dimension2du(texture->getSize().Width, texture->getSize().Height), "newTexture2", texture->getColorFormat());
+    irr::video::ITexture* newTexture = videoDriver->addTexture(irr::core::dimension2du(texture->getSize().Width, texture->getSize().Height), "newTexture", texture->getColorFormat());    
     irr::video::SColor* oldTexturePixels = (irr::video::SColor*)texture->lock(irr::video::ETLM_READ_ONLY);
-    irr::video::SColor* newTexturePixels = (irr::video::SColor*)newTexture->lock(irr::video::ETLM_WRITE_ONLY);
-    irr::video::SColor* newTexturePixels2 = (irr::video::SColor*)newTexture2->lock(irr::video::ETLM_WRITE_ONLY);
+    irr::video::SColor* newTexturePixels = (irr::video::SColor*)newTexture->lock(irr::video::ETLM_WRITE_ONLY);    
     for (irr::u32 i = 0; i < texture->getSize().Width; ++i) {
         for (irr::u32 j = 0; j < texture->getSize().Height; ++j) {
-            newTexturePixels[i * texture->getSize().Width + j] = oldTexturePixels[i * texture->getSize().Width + j];
-            newTexturePixels2[i * texture->getSize().Width + j] = oldTexturePixels[i * texture->getSize().Width + j];
+            newTexturePixels[i * texture->getSize().Width + j] = oldTexturePixels[i * texture->getSize().Width + j];            
         }
     }
     texture->unlock();
     newTexture->unlock();
-    newTexture2->unlock();
 
     figureParentNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    figureParentNode->setMaterialTexture(0, newTexture2);
-    setCubeColour(figureParentNode, irr::video::SColor(255, 255, 255, 100));
+    figureParentNode->setMaterialTexture(0, newTexture);
+    setCubeColour(figureParentNode, colour);
     setTextureToNodeChildren(figureParentNode, newTexture, colour);
-
 }
 
 // because figureSize is vector with similar values, we can obtain any of them
@@ -653,33 +648,26 @@ irr::core::stringw CFigure::getFigureName() const {
    0-0-0
  we must perform full search
  */
-irr::scene::ISceneNode* CFigure::getNodeByOffset(irr::scene::ISceneNode* node, irr::core::vector3di offset) {
-    std::cout << "in offset:" << offset.X << "," << offset.Y << "," << offset.Z << std::endl;
+irr::scene::ISceneNode* CFigure::getNodeByOffset(irr::scene::ISceneNode* node, irr::core::vector3di offset) {    
     irr::core::list<irr::scene::ISceneNode*> children = node->getChildren();
     for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
         irr::core::vector3df childPosition = (*it)->getPosition();
-        if (childPosition.X == offset.X && childPosition.Y == offset.Y && childPosition.Z == offset.Z) {
-            if (*it != NULL) {
-                std::cout << "node not null from children FOUND" << std::endl;
-            }
+        if (childPosition.X == offset.X && childPosition.Y == offset.Y && childPosition.Z == offset.Z) {            
             return *it;
         }
 
         offset.X -= childPosition.X;
         offset.Y -= childPosition.Y;
-        offset.Z -= childPosition.Z;
-        std::cout << "after minus offset:" << offset.X << "," << offset.Y << "," << offset.Z << std::endl;
+        offset.Z -= childPosition.Z;        
         irr::scene::ISceneNode* node = getNodeByOffset(*it, offset);
-        if (node != NULL) {
-            std::cout << "node not null from children" << std::endl;
+        if (node != NULL) {            
             return node;
         }
         offset.X += childPosition.X;
         offset.Y += childPosition.Y;
         offset.Z += childPosition.Z;
     }
-
-    std::cout << "node null from function" << std::endl;
+    
     return NULL;
 }
 
@@ -703,71 +691,13 @@ void CFigure::removeNodeByOffset(irr::core::vector3di& offset) {
         return;
     }
 
-    std::cout << "after remove offset:" << std::endl;
-    std::cout << offset.X << ", " << offset.Y << ", " << offset.Z << std::endl;
-
-    // set field position to empty    
-    /*offset.X /= getScale().X;
-    offset.X /= getScale().X;
-    offset.X /= getScale().X;*/
-    irr::core::vector3di tempVector;
     irr::core::vector3di outputPosition;
-    if (getRotation() == irr::core::vector3df()) {
-        outputPosition.X = offset.X / getScale().X;
-        outputPosition.Y = offset.Y / getScale().Y;
-        outputPosition.Z = offset.Z / getScale().Z;
-    } else {
-        // calculate child rotation offset
-        if (getRotation().X != 0) {
-            tempVector.X = 0;
-            tempVector.Y = offset.Y / getScale().Y;
-            tempVector.Z = 0;
-            tempVector.rotateYZBy(getRotation().X, irr::core::vector3di(0, 0, 0));
-            outputPosition += tempVector;
-
-            tempVector.X = 0;
-            tempVector.Y = 0;
-            tempVector.Z = offset.Z / getScale().Z;
-            tempVector.rotateYZBy(getRotation().X, irr::core::vector3di(0, 0, 0));
-            outputPosition += tempVector;
-        }
-
-        if (getRotation().Y != 0) {
-            tempVector.X = offset.X / getScale().X;
-            tempVector.Y = 0;
-            tempVector.Z = 0;
-            tempVector.rotateXZBy(getRotation().Y, irr::core::vector3di(0, 0, 0));
-            outputPosition += tempVector;
-
-            tempVector.X = 0;
-            tempVector.Y = 0;
-            tempVector.Z = offset.Z / getScale().Z;
-            tempVector.rotateXZBy(getRotation().Y, irr::core::vector3di(0, 0, 0));
-            outputPosition += tempVector;
-        }
-
-        if (getRotation().Z != 0) {
-            tempVector.X = offset.X / getScale().X;
-            tempVector.Y = 0;
-            tempVector.Z = 0;
-            tempVector.rotateXYBy(getRotation().Z, irr::core::vector3di(0, 0, 0));
-            outputPosition += tempVector;
-
-            tempVector.X = 0;
-            tempVector.Y = offset.Y / getScale().Y;
-            tempVector.Z = 0;
-            tempVector.rotateXYBy(getRotation().Z, irr::core::vector3di(0, 0, 0));
-            outputPosition += tempVector;
-        }
-    }
+    rotateVectorByCoordinate(irr::core::vector3di(offset.X / getScale().X, offset.Y / getScale().Y, offset.Z / getScale().Z), getRotation(), outputPosition); 
     outputPosition += parentNodeFieldPosition;
     offset = outputPosition;
-    std::cout << "field position to empty:" << std::endl;
-    std::cout << offset.X << ", " << offset.Y << ", " << offset.Z << std::endl;
-    // must return
 }
 
-void clip(irr::scene::ISceneNode* node, irr::core::vector3di vector) {
+void CFigure::collapseNodes(irr::scene::ISceneNode* node, irr::core::vector3di vector) {
     irr::core::vector3df position = node->getPosition();
     position.X -= vector.X;
     position.Y -= vector.Y;
@@ -777,25 +707,14 @@ void clip(irr::scene::ISceneNode* node, irr::core::vector3di vector) {
     irr::core::list<irr::scene::ISceneNode*> children = node->getChildren();
     // affect on all upper children with gravity
     for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
-        clip(*it, vector);
+        collapseNodes(*it, vector);
     }
 }
 
-bool CFigure::g() {
-    if (gparent != NULL) {
-        std::cout << "before g" << std::endl;
-        std::cout << "parent position" << std::endl;
-        std::cout << parentNodeFieldPosition.X << "," << parentNodeFieldPosition.Y << "," << parentNodeFieldPosition.Z << std::endl;
-        std::cout << "gparent rel. position" << std::endl;
-        std::cout << gparent->getPosition().X << "," << gparent->getPosition().Y << "," << gparent->getPosition().Z << std::endl;
-        std::cout << "goffset" << std::endl;
-        std::cout << goffset.X << "," << goffset.Y << "," << goffset.Z << std::endl;
-        for (irr::u32 i = 0; i < fieldPositions.size(); ++i) {
-            std::cout << fieldPositions[i].X << "," << fieldPositions[i].Y << "," << fieldPositions[i].Z << std::endl;
-        }
-
-        if (gparent == figureParentNode) {
-            irr::core::list<irr::scene::ISceneNode*> children = gparent->getChildren();
+bool CFigure::isFigureCollapse() {
+    if (collapsableNode != NULL) {
+        if (collapsableNode == figureParentNode) {
+            irr::core::list<irr::scene::ISceneNode*> children = collapsableNode->getChildren();
             // affect on all lower children with antigravity
             for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
                 irr::core::vector3df relPosition = (*it)->getPosition();
@@ -806,12 +725,13 @@ bool CFigure::g() {
                 } else if (relPosition.Z != 0) {
                     relPosition.Z = figureSize.Z;
                 }
-                clip(*it, irr::core::vector3di(relPosition.X, relPosition.Y, relPosition.Z));
+                collapseNodes(*it, irr::core::vector3di(relPosition.X, relPosition.Y, relPosition.Z));
             }
 
             constructNodesFieldPositions(parentNodeFieldPosition);            
         } else {
-            irr::core::vector3df relPosition = gparent->getPosition();
+            // affect on all upper children with gravity
+            irr::core::vector3df relPosition = collapsableNode->getPosition();
             if (relPosition.X != 0) {
                 relPosition.X = figureSize.X;
             } else if (relPosition.Y != 0) {
@@ -820,16 +740,11 @@ bool CFigure::g() {
                 relPosition.Z = figureSize.Z;
             }
             
-            clip(gparent, irr::core::vector3di(relPosition.X, relPosition.Y, relPosition.Z));
+            collapseNodes(collapsableNode, irr::core::vector3di(relPosition.X, relPosition.Y, relPosition.Z));
             constructNodesFieldPositions(parentNodeFieldPosition);
         }
-
-
-        std::cout << "after g" << std::endl;
-        for (irr::u32 i = 0; i < fieldPositions.size(); ++i) {
-            std::cout << fieldPositions[i].X << "," << fieldPositions[i].Y << "," << fieldPositions[i].Z << std::endl;
-        }       
-        gparent = NULL;
+      
+        collapsableNode = NULL;
         return true;
     }
     return false;
@@ -865,69 +780,9 @@ void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool wi
     // affect on all upper children with gravity
     bool nodesBelowExists = false;
     for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
-        irr::core::vector3df res;
-        if (nodeToDelete->getRotation() == irr::core::vector3df()) {
-            res.X = (*it)->getPosition().X;
-            res.Y = (*it)->getPosition().Y;
-            res.Z = (*it)->getPosition().Z;
-        } else {
-            irr::core::vector3di tempVector;
-            // calculate child rotation offset
-            if (nodeToDelete->getRotation().X != 0) {
-                tempVector.X = 0;
-                tempVector.Y = (*it)->getPosition().Y;
-                tempVector.Z = 0;
-                tempVector.rotateYZBy(nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                res.X += tempVector.X;
-                res.Y += tempVector.Y;
-                res.Z += tempVector.Z;
-
-                tempVector.X = 0;
-                tempVector.Y = 0;
-                tempVector.Z = (*it)->getPosition().Z;
-                tempVector.rotateYZBy(nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                res.X += tempVector.X;
-                res.Y += tempVector.Y;
-                res.Z += tempVector.Z;
-            }
-
-            if (nodeToDelete->getRotation().Y != 0) {
-                tempVector.X = (*it)->getPosition().X;
-                tempVector.Y = 0;
-                tempVector.Z = 0;
-                tempVector.rotateXZBy(nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                res.X += tempVector.X;
-                res.Y += tempVector.Y;
-                res.Z += tempVector.Z;
-
-                tempVector.X = 0;
-                tempVector.Y = 0;
-                tempVector.Z = (*it)->getPosition().Z;
-                tempVector.rotateXZBy(nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                res.X += tempVector.X;
-                res.Y += tempVector.Y;
-                res.Z += tempVector.Z;
-            }
-
-            if (nodeToDelete->getRotation().Z != 0) {
-                tempVector.X = (*it)->getPosition().X;
-                tempVector.Y = 0;
-                tempVector.Z = 0;
-                tempVector.rotateXYBy(nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                res.X += tempVector.X;
-                res.Y += tempVector.Y;
-                res.Z += tempVector.Z;
-
-                tempVector.X = 0;
-                tempVector.Y = (*it)->getPosition().Y;
-                tempVector.Z = 0;
-                tempVector.rotateXYBy(nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                res.X += tempVector.X;
-                res.Y += tempVector.Y;
-                res.Z += tempVector.Z;
-            }
-        }
-        std::cout << "res: " << res.X << ", " << res.Y << ", " << res.Z << std::endl;
+        irr::core::vector3di res;
+        rotateVectorByCoordinate(irr::core::vector3di((*it)->getPosition().X / getScale().X, (*it)->getPosition().Y / getScale().Y, (*it)->getPosition().Z / getScale().Z),
+                nodeToDelete->getRotation(), res);       
         if (res.Y < 0) {
             nodesBelowExists = true;
             break;
@@ -935,141 +790,15 @@ void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool wi
     }
     if (nodesBelowExists) {
         for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
-            irr::core::vector3df res;
-            if (nodeToDelete->getRotation() == irr::core::vector3df()) {
-                res.X = (*it)->getPosition().X;
-                res.Y = (*it)->getPosition().Y;
-                res.Z = (*it)->getPosition().Z;
-            } else {
-                irr::core::vector3di tempVector;
-                // calculate child rotation offset
-                if (nodeToDelete->getRotation().X != 0) {
-                    tempVector.X = 0;
-                    tempVector.Y = (*it)->getPosition().Y;
-                    tempVector.Z = 0;
-                    tempVector.rotateYZBy(nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                    res.X += tempVector.X;
-                    res.Y += tempVector.Y;
-                    res.Z += tempVector.Z;
-
-                    tempVector.X = 0;
-                    tempVector.Y = 0;
-                    tempVector.Z = (*it)->getPosition().Z;
-                    tempVector.rotateYZBy(nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                    res.X += tempVector.X;
-                    res.Y += tempVector.Y;
-                    res.Z += tempVector.Z;
-                }
-
-                if (nodeToDelete->getRotation().Y != 0) {
-                    tempVector.X = (*it)->getPosition().X;
-                    tempVector.Y = 0;
-                    tempVector.Z = 0;
-                    tempVector.rotateXZBy(nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                    res.X += tempVector.X;
-                    res.Y += tempVector.Y;
-                    res.Z += tempVector.Z;
-
-                    tempVector.X = 0;
-                    tempVector.Y = 0;
-                    tempVector.Z = (*it)->getPosition().Z;
-                    tempVector.rotateXZBy(nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                    res.X += tempVector.X;
-                    res.Y += tempVector.Y;
-                    res.Z += tempVector.Z;
-                }
-
-                if (nodeToDelete->getRotation().Z != 0) {
-                    tempVector.X = (*it)->getPosition().X;
-                    tempVector.Y = 0;
-                    tempVector.Z = 0;
-                    tempVector.rotateXYBy(nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                    res.X += tempVector.X;
-                    res.Y += tempVector.Y;
-                    res.Z += tempVector.Z;
-
-                    tempVector.X = 0;
-                    tempVector.Y = (*it)->getPosition().Y;
-                    tempVector.Z = 0;
-                    tempVector.rotateXYBy(nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                    res.X += tempVector.X;
-                    res.Y += tempVector.Y;
-                    res.Z += tempVector.Z;
-                }
-            }
-            std::cout << "res: " << res.X << ", " << res.Y << ", " << res.Z << std::endl;
+            irr::core::vector3di res;
+            rotateVectorByCoordinate(irr::core::vector3di((*it)->getPosition().X / getScale().X, (*it)->getPosition().Y / getScale().Y, (*it)->getPosition().Z / getScale().Z),
+                nodeToDelete->getRotation(), res);
+            
             if (res.Y > 0) {
-                irr::core::vector3df res2;
-                if (nodeToDelete->getRotation() == irr::core::vector3df()) {
-                    res.X = (*it)->getPosition().X;
-                    res.Y = (*it)->getPosition().Y;
-                    res.Z = (*it)->getPosition().Z;
-                } else {
-                    irr::core::vector3di tempVector;
-                    // calculate child rotation offset
-                    if (nodeToDelete->getRotation().X != 0) {
-                        tempVector.X = 0;
-                        tempVector.Y = res.Y;
-                        tempVector.Z = 0;
-                        tempVector.rotateYZBy(-nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                        res2.X += tempVector.X;
-                        res2.Y += tempVector.Y;
-                        res2.Z += tempVector.Z;
-
-                        tempVector.X = 0;
-                        tempVector.Y = 0;
-                        tempVector.Z = res.Z;
-                        tempVector.rotateYZBy(-nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                        res2.X += tempVector.X;
-                        res2.Y += tempVector.Y;
-                        res2.Z += tempVector.Z;
-                    }
-
-                    if (nodeToDelete->getRotation().Y != 0) {
-                        tempVector.X = res.X;
-                        tempVector.Y = 0;
-                        tempVector.Z = 0;
-                        tempVector.rotateXZBy(-nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                        res2.X += tempVector.X;
-                        res2.Y += tempVector.Y;
-                        res2.Z += tempVector.Z;
-
-                        tempVector.X = 0;
-                        tempVector.Y = 0;
-                        tempVector.Z = res.Z;
-                        tempVector.rotateXZBy(-nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                        res2.X += tempVector.X;
-                        res2.Y += tempVector.Y;
-                        res2.Z += tempVector.Z;
-                    }
-
-                    if (nodeToDelete->getRotation().Z != 0) {
-                        tempVector.X = res.X;
-                        tempVector.Y = 0;
-                        tempVector.Z = 0;
-                        tempVector.rotateXYBy(-nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                        res2.X += tempVector.X;
-                        res2.Y += tempVector.Y;
-                        res2.Z += tempVector.Z;
-
-                        tempVector.X = 0;
-                        tempVector.Y = res.Y;
-                        tempVector.Z = 0;
-                        tempVector.rotateXYBy(-nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                        res2.X += tempVector.X;
-                        res2.Y += tempVector.Y;
-                        res2.Z += tempVector.Z;
-                    }
-                }
-                irr::core::vector3di tempVector;
-                tempVector.X = res2.X;
-                tempVector.Y = res2.Y;
-                tempVector.Z = res2.Z;
-                goffset = tempVector;
-                gparent = *it;
-                //tempVector.rotateXYBy(-nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                //std::cout << "res2: " << tempVector.X << ", " << tempVector.Y << ", " << tempVector.Z << std::endl;
-                //clip(*it, tempVector);
+                irr::core::vector3di res2;
+                rotateVectorByCoordinate(irr::core::vector3di((*it)->getPosition().X / getScale().X, (*it)->getPosition().Y / getScale().Y, (*it)->getPosition().Z / getScale().Z),
+                nodeToDelete->getRotation(), res2, true);                              
+                collapsableNode = *it;                
             }
         }
     }
@@ -1077,72 +806,21 @@ void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool wi
     if (nodeToDelete == figureParentNode) {
         figureParentNode = (*children.begin());
         for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin() + 1; it != children.end(); ++it) {
-            irr::core::vector3df newposition = (*it)->getPosition() - figureParentNode->getPosition();
-            std::cout << newposition.X << ", " << newposition.Y << ", " << newposition.Z << std::endl;
+            irr::core::vector3df newposition = (*it)->getPosition() - figureParentNode->getPosition();            
             (*it)->setParent(figureParentNode);
             (*it)->setPosition(newposition);
         }
 
         // extremely important that newParentPosition has vector3dI type, otherwise after
         // rotateXXBy() method call you'll have wrong values
-        irr::core::vector3di newParentPosition;
-        //std::cout << "parent rel. pos. (before rot)" << std::endl;
-        //std::cout << newParentPosition.X << ", " << newParentPosition.Y << ", " << newParentPosition.Z << std::endl;
-        std::cout << " . . ( rot)" << std::endl;
-        std::cout << nodeToDelete->getRotation().X << ", " << nodeToDelete->getRotation().Y << ", " << nodeToDelete->getRotation().Z << std::endl;
+        irr::core::vector3di newParentPosition;        
+        rotateVectorByCoordinate(irr::core::vector3di(
+                (figureParentNode->getPosition() / nodeToDelete->getScale()).X,
+                (figureParentNode->getPosition() / nodeToDelete->getScale()).Y,
+                (figureParentNode->getPosition() / nodeToDelete->getScale()).Z),
+                nodeToDelete->getRotation(),
+                newParentPosition);        
 
-        if (nodeToDelete->getRotation() == irr::core::vector3df()) {
-            newParentPosition.X = (figureParentNode->getPosition() / nodeToDelete->getScale()).X;
-            newParentPosition.Y = (figureParentNode->getPosition() / nodeToDelete->getScale()).Y;
-            newParentPosition.Z = (figureParentNode->getPosition() / nodeToDelete->getScale()).Z;
-        } else {
-            irr::core::vector3di tempVector;
-            // calculate child rotation offset
-            if (nodeToDelete->getRotation().X != 0) {
-                tempVector.X = 0;
-                tempVector.Y = (figureParentNode->getPosition() / nodeToDelete->getScale()).Y;
-                tempVector.Z = 0;
-                tempVector.rotateYZBy(nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                newParentPosition += tempVector;
-
-                tempVector.X = 0;
-                tempVector.Y = 0;
-                tempVector.Z = (figureParentNode->getPosition() / nodeToDelete->getScale()).Z;
-                tempVector.rotateYZBy(nodeToDelete->getRotation().X, irr::core::vector3di(0, 0, 0));
-                newParentPosition += tempVector;
-            }
-
-            if (nodeToDelete->getRotation().Y != 0) {
-                tempVector.X = (figureParentNode->getPosition() / nodeToDelete->getScale()).X;
-                tempVector.Y = 0;
-                tempVector.Z = 0;
-                tempVector.rotateXZBy(nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                newParentPosition += tempVector;
-
-                tempVector.X = 0;
-                tempVector.Y = 0;
-                tempVector.Z = (figureParentNode->getPosition() / nodeToDelete->getScale()).Z;
-                tempVector.rotateXZBy(nodeToDelete->getRotation().Y, irr::core::vector3di(0, 0, 0));
-                newParentPosition += tempVector;
-            }
-
-            if (nodeToDelete->getRotation().Z != 0) {
-                tempVector.X = (figureParentNode->getPosition() / nodeToDelete->getScale()).X;
-                tempVector.Y = 0;
-                tempVector.Z = 0;
-                tempVector.rotateXYBy(nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                newParentPosition += tempVector;
-
-                tempVector.X = 0;
-                tempVector.Y = (figureParentNode->getPosition() / nodeToDelete->getScale()).Y;
-                tempVector.Z = 0;
-                tempVector.rotateXYBy(nodeToDelete->getRotation().Z, irr::core::vector3di(0, 0, 0));
-                newParentPosition += tempVector;
-            }
-        }
-
-        std::cout << "parent rel. pos. (after rot)" << std::endl;
-        std::cout << newParentPosition.X << ", " << newParentPosition.Y << ", " << newParentPosition.Z << std::endl;
         parentNodeFieldPosition += newParentPosition;
         newParentPosition.X *= nodeToDelete->getScale().X * nodeToDelete->getScale().X;
         newParentPosition.Y *= nodeToDelete->getScale().Y * nodeToDelete->getScale().Y;
@@ -1185,4 +863,3 @@ void CFigure::setCubeColour(irr::scene::ISceneNode* node, irr::video::SColor col
     }
     texture->unlock();
 }
-

@@ -14,28 +14,18 @@ CGameFiguresFactory::CGameFiguresFactory(irr::IRandomizer* randomizer, irr::scen
 , figuresParent(figuresParent)
 , sceneManager(sceneManager)
 , fileSystem(fileSystem) {
-    // TODO make platform independent
-    texturePath = "media/textures";
-    modelsPath = "media/models";
-
-    // SCOL_BLACK
-    colours.push_back(irr::video::SColor(255, 0, 0, 0));
     // SCOL_BLUE
-    colours.push_back(irr::video::SColor(255, 0, 0, 255));
+    colours.push_back(irr::video::SColor(255, 100, 100, 255));
     // SCOL_CYAN
-    colours.push_back(irr::video::SColor(255, 0, 255, 255));
-    // SCOL_GRAY
-    colours.push_back(irr::video::SColor(255, 128, 128, 128));
+    colours.push_back(irr::video::SColor(255, 100, 255, 255));    
     // SCOL_GREEN
-    colours.push_back(irr::video::SColor(255, 0, 255, 0));
+    colours.push_back(irr::video::SColor(255, 100, 255, 100));
     // SCOL_MAGENTA
-    colours.push_back(irr::video::SColor(255, 255, 0, 255));
+    colours.push_back(irr::video::SColor(255, 255, 100, 255));
     // SCOL_RED
-    colours.push_back(irr::video::SColor(255, 255, 0, 0));
+    colours.push_back(irr::video::SColor(255, 255, 100, 100));
     // SCOL_YELLOW
-    colours.push_back(irr::video::SColor(255, 255, 255, 0));
-    // SCOL_WHITE
-    colours.push_back(irr::video::SColor(255, 255, 255, 255));
+    colours.push_back(irr::video::SColor(255, 255, 255, 100));
 }
 
 CFigure* CGameFiguresFactory::createNewFigure(EGF_FIGURE_TYPE figureType, irr::f32 figureSize, irr::video::SColor colour) {
@@ -52,20 +42,42 @@ CFigure* CGameFiguresFactory::createNewFigure(EGF_FIGURE_TYPE figureType, irr::f
         figurePath = "cube";
     }
 
-    irr::io::path workingDirectory = fileSystem->getWorkingDirectory();
+    irr::io::path defaultDirectory = fileSystem->getWorkingDirectory();         
+    irr::io::IFileList* fileList = fileSystem->createFileList();
+    bool directoryFound = false;
+    for (irr::u32 i = 0; i < fileList->getFileCount(); ++i) {
+        if (fileList->getFileName(i).equals_ignore_case("media") && fileList->isDirectory(i)) {
+            fileSystem->changeWorkingDirectoryTo(fileList->getFullFileName(i));
+            directoryFound = true;
+            break;
+        }
+    } 
+    
+    if (!directoryFound) {
+        fileList->drop();
+        return NULL;
+    }
+    
+    directoryFound = false;    
+    fileList = fileSystem->createFileList();
+    for (irr::u32 i = 0; i < fileList->getFileCount(); ++i) {
+        if (fileList->getFileName(i).equals_ignore_case("models") && fileList->isDirectory(i)) {
+            fileSystem->changeWorkingDirectoryTo(fileList->getFullFileName(i));
+            directoryFound = true;
+            break;
+        }
+    }  
+    
+    if (!directoryFound) {
+        fileList->drop();
+        return NULL;
+    }
 
     // get random model
-    fileSystem->changeWorkingDirectoryTo(modelsPath);
-    irr::io::IFileList* fileList = fileSystem->createFileList();
-    /*std::cout << fileList->getFileCount() << std::endl;
-    for (irr::u32 i = 0; i < fileList->getFileCount(); ++i) {
-        std::cout << fileList->isDirectory(i) << std::endl;
-        std::cout << fileList->getFileName(i).c_str() << std::endl;
-    }*/
-
+    fileList = fileSystem->createFileList();
     irr::io::path modelFilePath;
     while (true) {
-        irr::u32 randomIndex = irr::core::abs_(randomizer->rand()) % fileList->getFileCount();
+        irr::u32 randomIndex = irr::core::abs_(randomizer->rand()) % fileList->getFileCount();        
         if (fileList->isDirectory(randomIndex)) {
             continue;
         } else {
@@ -77,20 +89,44 @@ CFigure* CGameFiguresFactory::createNewFigure(EGF_FIGURE_TYPE figureType, irr::f
 
     // model not found
     if (modelFilePath == "") {
-        fileSystem->changeWorkingDirectoryTo(workingDirectory);
+        fileSystem->changeWorkingDirectoryTo(defaultDirectory);
+        fileList->drop();
+        return NULL;
+    }        
+
+    fileSystem->changeWorkingDirectoryTo(defaultDirectory);
+    fileList = fileSystem->createFileList();
+    directoryFound = false;
+    for (irr::u32 i = 0; i < fileList->getFileCount(); ++i) {
+        if (fileList->getFileName(i).equals_ignore_case("media") && fileList->isDirectory(i)) {
+            fileSystem->changeWorkingDirectoryTo(fileList->getFullFileName(i));
+            directoryFound = true;
+            break;
+        }
+    } 
+    
+    if (!directoryFound) {
         fileList->drop();
         return NULL;
     }
-
-    fileSystem->changeWorkingDirectoryTo(workingDirectory);
-    // get model texture
-    fileSystem->changeWorkingDirectoryTo(texturePath);
+    directoryFound = false;
+    
     fileList = fileSystem->createFileList();
-    /*std::cout << fileList->getFileCount() << std::endl;
     for (irr::u32 i = 0; i < fileList->getFileCount(); ++i) {
-        std::cout << fileList->isDirectory(i) << std::endl;
-        std::cout << fileList->getFileName(i).c_str() << std::endl;
-    }*/
+        if (fileList->getFileName(i).equals_ignore_case("textures") && fileList->isDirectory(i)) {
+            fileSystem->changeWorkingDirectoryTo(fileList->getFullFileName(i));
+            directoryFound = true;
+            break;
+        }
+    }  
+    
+    if (!directoryFound) {
+        fileList->drop();
+        return NULL;
+    }
+    
+    // get model texture
+    fileList = fileSystem->createFileList();
     irr::io::path texturePath;
     for (irr::u32 i = 0; i < fileList->getFileCount(); ++i) {
         if (fileList->isDirectory(i)) {
@@ -105,16 +141,14 @@ CFigure* CGameFiguresFactory::createNewFigure(EGF_FIGURE_TYPE figureType, irr::f
 
     // texture not found
     if (texturePath == "") {
-        fileSystem->changeWorkingDirectoryTo(workingDirectory);
+        fileSystem->changeWorkingDirectoryTo(defaultDirectory);
         fileList->drop();
         return NULL;
     }
 
-    std::cout << modelFilePath.c_str() << std::endl;
-    std::cout << texturePath.c_str() << std::endl;
     CFigure* newFigure = new CFigure(figuresParent, sceneManager, -1, fileSystem, figureSize, modelFilePath, nodeType);
     newFigure->applyTextureToFigure(texturePath, colour);
-    fileSystem->changeWorkingDirectoryTo(workingDirectory);
+    fileSystem->changeWorkingDirectoryTo(defaultDirectory);
     fileList->drop();
     return newFigure;
 }
@@ -127,7 +161,7 @@ CFigure* CGameFiguresFactory::createNewFigure(EGF_FIGURE_TYPE figureType, irr::f
                 (irr::u32)irr::core::abs_(randomizer->rand()),
                 (irr::u32)irr::core::abs_(randomizer->rand()));
     } else {
-        figureColour = colours[irr::core::abs_(randomizer->rand()) % 255];
+        figureColour = colours[irr::core::abs_(randomizer->rand()) % colours.size()];        
     }
     return createNewFigure(figureType, figureSize, figureColour);
 }
@@ -138,6 +172,10 @@ irr::scene::ISceneManager* CGameFiguresFactory::getSceneManager() const {
 
 irr::scene::ISceneNode* CGameFiguresFactory::getFiguresParentNode() const {
     return figuresParent;
+}
+
+irr::io::IFileSystem* CGameFiguresFactory::getFileSystem() const {
+    return fileSystem;
 }
 
 CGameFiguresFactory::~CGameFiguresFactory() {

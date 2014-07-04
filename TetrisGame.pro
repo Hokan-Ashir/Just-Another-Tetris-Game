@@ -22,7 +22,8 @@ SOURCES += sources/main.cpp\
     sources/CGameFiguresFactory.cpp \
     sources/CGridBox.cpp \
     sources/CUserInputEventReceiver.cpp \
-    sources/CGameApplication.cpp
+    sources/CGameApplication.cpp \
+    sources/Manipulators.cpp
 
 HEADERS  += headers/mainwindow.h \
     headers/irrwidget.h \
@@ -35,7 +36,8 @@ HEADERS  += headers/mainwindow.h \
     headers/CGameFiguresFactory.h \
     headers/CGridBox.h \
     headers/CUserInputEventReceiver.h \
-    headers/CGameApplication.h
+    headers/CGameApplication.h \
+    headers/Manipulators.cpp
 
 FORMS    += forms/mainwindow.ui
 LIBS += -L/home/hokan/Irrlicht/irrlicht-1.8/lib/Linux -lIrrlicht -lGL -lX11 -lXxf86vm

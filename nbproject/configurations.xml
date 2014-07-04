@@ -13,6 +13,7 @@
         <in>CMoveByStepAnimator.h</in>
         <in>CMoveDownAnimator.h</in>
         <in>CUserInputEventReceiver.h</in>
+        <in>Manipulators.h</in>
       </df>
       <df name="sources">
         <in>CFigure.cpp</in>
@@ -25,6 +26,7 @@
         <in>CMoveByStepAnimator.cpp</in>
         <in>CMoveDownAnimator.cpp</in>
         <in>CUserInputEventReceiver.cpp</in>
+        <in>Manipulators.cpp</in>
         <in>irrwidget.cpp</in>
         <in>main.cpp</in>
         <in>mainwindow.cpp</in>
@@ -98,6 +100,8 @@
       </item>
       <item path="headers/CUserInputEventReceiver.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="headers/Manipulators.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="moc_irrwidget.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="moc_mainwindow.cpp" ex="false" tool="1" flavor2="0">
@@ -124,6 +128,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="sources/Manipulators.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sources/irrwidget.cpp" ex="false" tool="1" flavor2="0">
       </item>

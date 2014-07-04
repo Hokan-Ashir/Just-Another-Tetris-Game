@@ -32,6 +32,9 @@ public:
     bool getTwoDimensionalMode() const;
 
     void setTwoDimensionalMode(bool newValue);
+    
+    bool isPause() const;
+    void setPause(bool newPauseValue);
 
 private:
     bool outOfBottomFieldBorders(irr::core::vector3di position);
@@ -44,6 +47,7 @@ private:
     CGameFieldManager* gameFieldManager;
     bool twoDimensionalMode;
     CFigure* figure;
+    bool pause;
 };
 
 #endif	/* CUSERINPUTRECEIVER_H */

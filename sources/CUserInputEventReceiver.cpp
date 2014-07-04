@@ -12,7 +12,8 @@
 CUserInputEventReceiver::CUserInputEventReceiver(CGameFieldManager* gameFieldManager, bool twoDimensionalMode, CFigure* figure)
 : gameFieldManager(gameFieldManager)
 , twoDimensionalMode(twoDimensionalMode)
-, figure(figure) {
+, figure(figure)
+, pause(false) {
 }
 
 CUserInputEventReceiver::~CUserInputEventReceiver() {
@@ -22,6 +23,14 @@ CUserInputEventReceiver::~CUserInputEventReceiver() {
 // TODO make key map
 
 bool CUserInputEventReceiver::OnEvent(const irr::SEvent& event) {
+    if (event.EventType == irr::EET_KEY_INPUT_EVENT && event.KeyInput.PressedDown) {
+        switch (event.KeyInput.Key) {
+            case irr::KEY_KEY_P:
+                pause = !pause;
+                return true;
+        }
+    }
+
     if (figure == NULL) {
         return false;
     }
@@ -103,6 +112,14 @@ void CUserInputEventReceiver::setTwoDimensionalMode(bool newValue) {
     twoDimensionalMode = newValue;
 }
 
+bool CUserInputEventReceiver::isPause() const {
+    return pause;
+}
+
+void CUserInputEventReceiver::setPause(bool newPauseValue) {
+    pause = newPauseValue;
+}
+
 bool CUserInputEventReceiver::outOfFieldBorders(irr::core::vector3di position) {
     irr::core::vector3di fieldSize = gameFieldManager->getFieldSize();
     return ((position.X < 0 || position.Y < 0 || position.Z < 0) || ((position.X > (fieldSize.X - 1)) || (position.Y > (fieldSize.Y - 1)) || (position.Z > (fieldSize.Z - 1))));
@@ -148,8 +165,6 @@ void CUserInputEventReceiver::moveFigureInDirection(irr::core::vector3di directi
         }
         figure->parentNodeFieldPosition += directionStep;
 
-        /*std::cout << "*******" << std::endl;
-        gameFieldManager->printField();*/
 
         irr::core::vector3df newPosition;
         newPosition.X = directionStep.X;
@@ -208,10 +223,6 @@ void CUserInputEventReceiver::rotateFigureInDirection(irr::core::vector3df direc
             }
         }
     }
-    
-    /*for (irr::u32 i = 0; i < newFieldPositions.size(); ++i) {
-        std::cout << newFieldPositions[i].X << "," << newFieldPositions[i].Y << "," << newFieldPositions[i].Z << std::endl;
-    }*/
 
     // check if field is empty on this positions
     for (irr::u32 i = 0; i < newFieldPositions.size(); ++i) {
@@ -239,4 +250,3 @@ void CUserInputEventReceiver::rotateFigureInDirection(irr::core::vector3df direc
     }
     figure->setFieldPositionChanged(true);
 }
-

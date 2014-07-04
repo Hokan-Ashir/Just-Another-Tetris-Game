@@ -7,8 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setCentralWidget(&irrWidget);
-    //irrWidget.setParent(ui->centralWidget);
-    //irrWidget.setGeometry(160, 0, 630, 480);
 }
 
 MainWindow::~MainWindow()

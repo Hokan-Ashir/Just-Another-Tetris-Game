@@ -16,7 +16,8 @@ delay(delay)
 , gameFieldManager(gameFieldManager)
 , twoDimensionalMode(twoDimensionalMode)
 , noBoundaries(false)
-, firstUpdate(true) {
+, firstUpdate(true)
+, stopped(false) {
 #ifdef _DEBUG
     setDebugName("CMoveDownAnimator");
 #endif
@@ -44,6 +45,14 @@ void CMoveDownAnimator::setDelay(irr::f32 delay) {
     this->delay = delay;
 }
 
+bool CMoveDownAnimator::isStopped() const {
+    return stopped;
+}
+
+void CMoveDownAnimator::setStoppedValue(bool newStoppedValue) {
+    stopped = newStoppedValue;
+}
+
 bool CMoveDownAnimator::outOfFieldBorders(irr::core::vector3di position) {
     irr::core::vector3di fieldSize = gameFieldManager->getFieldSize();
     return ((position.X < 0 || position.Y < 0 || position.Z < 0) || ((position.X > (fieldSize.X - 1)) || (position.Y > (fieldSize.Y - 1)) || (position.Z > (fieldSize.Z - 1))));
@@ -54,7 +63,7 @@ bool CMoveDownAnimator::outOfBottomFieldBorders(irr::core::vector3di position) {
 }
 
 void CMoveDownAnimator::animateNode(irr::scene::ISceneNode* node, irr::u32 timeMs) {
-    if (!node) {
+    if (!node || stopped) {
         return;
     }
 
@@ -65,7 +74,7 @@ void CMoveDownAnimator::animateNode(irr::scene::ISceneNode* node, irr::u32 timeM
 
     if ((timeMs - loopTime) >= delay) {
         CFigure* figure = static_cast<CFigure*> (node);
-        if (figure->g()) {
+        if (figure->isFigureCollapse()) {
             irr::s32 direction = 1;
             // check in which direction nodes gone
             for (irr::u32 i = 0; i < figure->getFieldPositions().size(); ++i) {
@@ -75,7 +84,7 @@ void CMoveDownAnimator::animateNode(irr::scene::ISceneNode* node, irr::u32 timeM
                     break;
                 }
             }
-            
+
             for (irr::u32 i = 0; i < figure->getFieldPositions().size(); ++i) {
                 if (figure->getFieldPositions()[i] != figure->parentNodeFieldPosition) {
                     gameFieldManager->setFieldValue(EGF_EMPTY, figure->getFieldPositions()[i] + irr::core::vector3di(0, direction, 0));
@@ -83,7 +92,6 @@ void CMoveDownAnimator::animateNode(irr::scene::ISceneNode* node, irr::u32 timeM
                 }
             }
             figure->setFieldPositionChanged(true);
-            gameFieldManager->printField();
         } else {
 
 

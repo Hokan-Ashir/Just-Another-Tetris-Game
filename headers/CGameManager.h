@@ -8,6 +8,12 @@
 #ifndef CGAMEMANAGER_H
 #define	CGAMEMANAGER_H
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#include <IGUIStaticText.h>
+#pragma GCC diagnostic warning "-Wunused-parameter"
+#pragma GCC diagnostic warning "-Wunused-variable"
+
 #include "headers/CGameFieldManager.h"
 #include "headers/CGameFiguresFactory.h"
 #include "headers/CFigure.h"
@@ -15,13 +21,12 @@
 
 class CGameManager {
 public:
-    CGameManager(CGameFieldManager* gameFieldManager, CGameFiguresFactory* gameFiruresFactory, CUserInputEventReceiver* userInputReceiver, bool twoDimensionalMode, irr::core::vector3df fieldOrigin, irr::core::aabbox3df fieldAABB);
+    CGameManager(irr::gui::IGUIEnvironment* guiEnvironment, CGameFieldManager* gameFieldManager, CGameFiguresFactory* gameFiruresFactory, CUserInputEventReceiver* userInputReceiver, bool twoDimensionalMode, irr::core::vector3df fieldOrigin, irr::core::aabbox3df fieldAABB);
     virtual ~CGameManager();
     // thid method also affect 3d mode, so its naming is fine
     // return number of deleted lines
     irr::u32 deleteConstuctedLines();
-    
-    bool spawnNewFigure(EGF_FIGURE_TYPE figureType, irr::f32 figureSize, irr::video::SColor colour);
+        
     bool spawnNewFigure(EGF_FIGURE_TYPE figureType, irr::f32 figureSize);
     bool spawnNewFigure(EGF_FIGURE_TYPE figureType);
     
@@ -39,6 +44,12 @@ public:
     
     bool getTwoDimensionalMode() const;
     void setTwoDimensionalMode(bool twoDimensionalMode);
+    
+    bool isPause() const;
+    void setPauseValue(bool newPauseValue);
+    
+    bool isGameOver() const;
+    void setGameOverValue(bool newGameOverValue);
     
     irr::u32 calculateGameScore(irr::u32 numberOfDeletedLines);
     
@@ -64,10 +75,15 @@ private:
     irr::u32 gameScore;
         
     // point in world coordinates where (0,0,0)-field point would be spawned
-    irr::core::vector3df fieldOrigin;
-        
+    irr::core::vector3df fieldOrigin;        
     irr::core::aabbox3df aabb;
     irr::core::vector3df gridBoxPosition;
+    
+    irr::gui::IGUIEnvironment* guiEnvironment;
+    irr::gui::IGUIStaticText* text;
+    
+    bool gameOver;
+    bool animatorsStopped;
 };
 
 #endif	/* CGAMEMANAGER_H */

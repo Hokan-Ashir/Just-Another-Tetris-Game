@@ -84,9 +84,7 @@ void CGridBox::setGridsSize(const irr::core::dimension2df& newsize) {
 
         backGrid->setGridsSize(newsize);
         backGrid->setPosition(irr::core::vector3df(0.0f, newsize.Height / 2, -newsize.Width / 2));
-    }
-
-    //leftGrid->setRotation(core::vector3df(0, 0, 0));
+    }    
 }
 
 irr::core::dimension2df CGridBox::getGridsSize() const {
@@ -108,21 +106,9 @@ irr::f32 CGridBox::getSpacing() const {
 // so all grids are visible
 
 void CGridBox::turnOn3DMode() {
-    /* downGrid->setVisible(true);
-     rightGrid->setVisible(true);
-     frontGrid->setVisible(true);
-     backGrid->setVisible(true);*/
 }
 
 // so visible only left grid
 
-void CGridBox::turnOn2DMode() {
-    /*downGrid->setVisible(false);
-    rightGrid->setVisible(false);
-    frontGrid->setVisible(false);
-    backGrid->setVisible(false);*/
-
-    /*downGrid->setMaterialType(EMT_TRANSPARENT_VERTEX_ALPHA);       
-    downGrid->setMaterialFlag(video::EMF_LIGHTING, false);
-    smgr->getMeshManipulator()->setVertexColorAlpha(downGrid->getGrid(0).g(), 0);*/
+void CGridBox::turnOn2DMode() {   
 }

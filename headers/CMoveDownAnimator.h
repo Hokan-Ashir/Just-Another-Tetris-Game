@@ -35,6 +35,9 @@ public:
     irr::f32 getDelay() const;
     void setDelay(irr::f32 delay);
     
+    bool isStopped() const;
+    void setStoppedValue(bool newStoppedValue);
+    
 protected:
     irr::core::vector3di directionStep;
     irr::u32 delay;
@@ -49,6 +52,7 @@ private:
     bool noBoundaries;
     bool firstUpdate;
     irr::u32 loopTime;
+    bool stopped;
 
 };
 

@@ -19,12 +19,13 @@
 class CGameApplication {
 public:
     CGameApplication();    
-    void initialize(irr::IrrlichtDevice* device);
+    bool initialize(irr::IrrlichtDevice* device);
     bool gameLoopIteration();
     virtual ~CGameApplication();
 private:
-    irr::scene::ICameraSceneNode* camera;
+    irr::scene::ICameraSceneNode* cameraSceneNode;
     
+    irr::IrrlichtDevice* device;
     CGameFieldManager* gameFieldManager;
     CGameFiguresFactory* gameFiguresFactory;
     CGameManager* gameManager;
