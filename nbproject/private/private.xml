@@ -10,15 +10,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CGameFiguresFactory.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CGridBox.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CFigure.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/TetrisGame.pro</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CMoveDownAnimator.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/mainwindow.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/Manipulators.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CGameManager.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CGridBox.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CMoveDownAnimator.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CGameApplication.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/main.cpp</file>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CUserInputEventReceiver.h</file>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CGameManager.cpp</file>
-            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CFigure.cpp</file>
-            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CMoveDownAnimator.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CGameApplication.h</file>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CUserInputEventReceiver.cpp</file>
-            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CGameManager.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CGridSceneNode.h</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/Manipulators.cpp</file>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/irrwidget.cpp</file>
+            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CGameFiguresFactory.cpp</file>
             <file>file:/home/hokan/NetBeansProjects/TetrisGame/headers/CFigure.h</file>
-            <file>file:/home/hokan/NetBeansProjects/TetrisGame/sources/CGameApplication.cpp</file>
         </group>
     </open-files>
 </project-private>

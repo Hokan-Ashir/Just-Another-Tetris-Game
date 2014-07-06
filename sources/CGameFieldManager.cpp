@@ -30,24 +30,6 @@ CGameFieldManager::CGameFieldManager(irr::core::vector3di fieldSize) {
 CGameFieldManager::~CGameFieldManager() {
 }
 
-void CGameFieldManager::printField() {
-    for (irr::s32 i = currentSizeX - 1; i > -1; --i) {
-        for (irr::s32 j = currentSizeY; j > -1; --j) {
-            std::cout << (irr::u32)getFieldValue(i, j, 0);
-        }
-        std::cout << std::endl;
-    }
-    /*for (irr::u8 i = 0; i < currentSizeX; ++i) {
-        std::cout << "i: " << (irr::u32)i << std::endl;
-        for (irr::u8 j = 0; j < currentSizeY; ++j) {
-            for (irr::u8 k = 0; k < currentSizeZ; ++k) {
-                std::cout << (irr::u32)getFieldValue(i, j, k);
-            }
-            std::cout << std::endl;
-        }
-    }*/
-}
-
 void CGameFieldManager::clearField(irr::u8 value) {
     for (irr::u8 i = 0; i < currentSizeX; ++i) {
         for (irr::u8 j = 0; j < currentSizeY; ++j) {

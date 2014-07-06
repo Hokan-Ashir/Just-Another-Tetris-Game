@@ -28,6 +28,11 @@ CGridBox::CGridBox(irr::scene::ISceneNode* parent, irr::scene::ISceneManager* sm
 }
 
 CGridBox::~CGridBox() {
+    delete rightGrid;
+    delete leftGrid;
+    delete downGrid;
+    delete frontGrid;
+    delete backGrid;
 }
 
 void CGridBox::setPosition(const irr::core::vector3df& newposition) {

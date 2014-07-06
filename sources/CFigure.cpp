@@ -36,6 +36,15 @@ irr::scene::ISceneNode(parent, sceneManager, id), figureName(L""), comment(L""),
 }
 
 CFigure::~CFigure() {
+    if (figureParentNode != NULL) {
+        removeAllCreatedTextures();
+        irr::scene::ISceneNodeAnimatorList animators = figureParentNode->getAnimators();
+        for(irr::scene::ISceneNodeAnimatorList::Iterator it = animators.begin(); it != animators.end(); ++it) {
+            (*it)->drop();
+        }
+        figureParentNode->removeAll();
+        figureParentNode->remove();
+    }
 }
 
 // TODO closing control
@@ -313,7 +322,7 @@ bool CFigure::getFieldPositionChanged() const {
     return fieldPositionChanged;
 }
 
-bool CFigure::setFieldPositionChanged(bool newValue) {
+void CFigure::setFieldPositionChanged(bool newValue) {
     fieldPositionChanged = newValue;
 }
 
@@ -560,7 +569,7 @@ void CFigure::setTextureToNodeChildren(irr::scene::ISceneNode* node, irr::video:
     for (irr::core::list<irr::scene::ISceneNode*>::Iterator it = children.begin(); it != children.end(); ++it) {
         (*it)->setMaterialFlag(irr::video::EMF_LIGHTING, false);
         (*it)->setMaterialTexture(0, texture);
-        setCubeColour(*it, colour);
+        setElementalBlockColour(*it, colour);
         setTextureToNodeChildren(*it, texture, colour);
     }
 }
@@ -581,7 +590,7 @@ void CFigure::applyTextureToFigure(const irr::io::path& textureFileName, irr::vi
 
     figureParentNode->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     figureParentNode->setMaterialTexture(0, newTexture);
-    setCubeColour(figureParentNode, colour);
+    setElementalBlockColour(figureParentNode, colour);
     setTextureToNodeChildren(figureParentNode, newTexture, colour);
 }
 
@@ -853,7 +862,7 @@ void CFigure::removeNodeFromFigure(irr::scene::ISceneNode* nodeToDelete, bool wi
     nodeToDelete->remove();
 }
 
-void CFigure::setCubeColour(irr::scene::ISceneNode* node, irr::video::SColor colour, irr::u32 borderSize) {
+void CFigure::setElementalBlockColour(irr::scene::ISceneNode* node, irr::video::SColor colour, irr::u32 borderSize) {
     irr::video::ITexture* texture = node->getMaterial(0).getTexture(0);
     irr::video::SColor* nodeTexturePixels = (irr::video::SColor*)texture->lock(irr::video::ETLM_WRITE_ONLY);
     for (irr::u32 i = borderSize; i < texture->getSize().Width - borderSize; ++i) {
